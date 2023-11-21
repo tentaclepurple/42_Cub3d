@@ -32,7 +32,7 @@ int	ft_isin_str(char *str, char ch)
 }
 
 //Returns string length
-size_t	ft_strlen(const char *s)
+/* size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
@@ -40,7 +40,7 @@ size_t	ft_strlen(const char *s)
 	while (s[i])
 		i++;
 	return (i);
-}
+} */
 
 //Function to add s2 to s1
 char	*ft_strbuf_join(char *s1, char const *s2)

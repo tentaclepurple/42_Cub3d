@@ -6,25 +6,33 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/21 21:43:20 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/21 23:52:00 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cube.h"
 
+/* 
+	uses get_netx_line to read the file return it.
+*/
 char	*ft_get_cube(int fd)
 {
 	char	*line;
 	char	*tmp;
+	char	*aux;
 
+	tmp = ft_strdup("");
 	line = get_next_line(fd);
 	while (line)
 	{
-		tmp = ft_strjoin(tmp, line);
+		aux = ft_strjoin(tmp, line);
+		free(tmp);
 		free(line);
+		tmp = ft_strdup(aux);
+		free(aux);
 		line = get_next_line(fd);
 	}
-	return (tmp);
+	return (tmp);	
 }
 
 /* 
