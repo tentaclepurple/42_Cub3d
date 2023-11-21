@@ -6,11 +6,26 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:46:22 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/21 19:02:45 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:30:01 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cube.h"
+
+char	*ft_get_cube(int fd)
+{
+	char	*line;
+	char	*tmp;
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		tmp = ft_strjoin(tmp, line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (tmp);
+}
 
 /* 
 	*.cub checks:
@@ -26,7 +41,11 @@
 		- only 1 player and valid characters (N, S, E, W)
 		- surrounded by walls
 */
-void	ft_checks(char *cub)
+void	ft_checks(int fd)
 {
-	
+	char	*str;
+
+	str = ft_get_cube(fd);
+	printf("%s\n", str);
+	free(str);
 }

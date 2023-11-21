@@ -3,7 +3,7 @@ LIBNAME = 	libft.a
 MLX = 		libmlx.a
 #NAMEBONUS = minishell_bonus
 
-SRC = 	
+SRC = 			../src/main.c
 #SRCBONUS = 	
 
 OBJ = $(SRC:.c=.o)
