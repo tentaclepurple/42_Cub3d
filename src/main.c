@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/21 23:52:00 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/22 09:23:27 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,20 @@ char	*ft_get_cube(int fd)
 void	ft_checks(int fd)
 {
 	char	*str;
+	char	**spl;
 
 	str = ft_get_cube(fd);
 	printf("%s\n", str);
+	printf("\n**************\n\n");
+	spl = ft_split(str, '\n');
 	free(str);
+	int i = 0;
+	while (spl[i])
+	{
+		printf("%s\n", spl[i]);
+		i++;
+	}
+	ft_free_split(spl);
 }
 
 
