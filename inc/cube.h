@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/22 12:02:16 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:26:21 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include "../libft/libft.h"
 
 typedef struct	s_cube
@@ -27,7 +28,6 @@ typedef struct	s_cube
 	char		*so;
 	char		*we;
 	char		*ea;
-	char		*s;
 	int			f;
 	int			c;
 }				t_cube;
@@ -36,10 +36,12 @@ typedef struct	s_parse
 {
 	int lastelem;
 	int firstmap;
+	int count1;
+	int i;
 }				t_parse;
 
 char	*ft_get_cub(int fd);
-void	ft_checks(int fd);
+void	ft_checks(t_cube *cub, int fd);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/22 13:20:00 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:49:06 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,48 +34,113 @@ char	*ft_get_cub(int fd)
 	}
 	return (tmp);	
 }
+void	ft_save_path(char *path, t_parse *p, char *elem)
+{
+	int fd;
+
+	//check if path is xpm and opens it to check if it is a valid path
+	fd = open(path, O_RDONLY);
+	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4) || fd == -1)
+		free_exit("Error\nInvalid path\n");
+	
+	
+	
+}
+
 
 /* 
-	search for NO, SO, WE, EA, S, F, C, R elems.
+	search lines starting with "1" or any of the elements. 
+	Anythig else is invalid.
+ */
+void	ft_search_elems_aux(t_cube *cub, t_parse *p, char **spl)
+{
+	if (!ft_strncmp("1", spl[p->i], 1))
+		{
+			p->firstmap = p->i;
+			p->count1++;
+		}
+		else if (spl[p->i + 1] && !ft_strncmp("NO", spl[p->i], 2))
+			ft_save_path(spl[p->i + 1], p, cub->no);
+		else if (spl[p->i + 1] && !ft_strncmp("SO", spl[p->i], 2))
+			ft_save_path(spl[p->i + 1], p, cub->so);
+		else if (spl[p->i + 1] && !ft_strncmp("WE", spl[p->i], 2))
+			ft_save_path(spl[p->i + 1], p, cub->we);
+		else if (spl[p->i + 1] && !ft_strncmp("EA", spl[p->i], 2))
+			ft_save_path(spl[p->i + 1], p, cub->ea);
+		else if (spl[p->i + 1] && !ft_strncmp("F", spl[p->i], 1))
+			ft_save_color(spl[p->i + 1], p, cub->f);
+		else if (spl[p->i + 1] && !ft_strncmp("C", spl[p->i], 1))
+			ft_save_color(spl[p->i + 1], p, cub->c);
+		else if (ft_strncmp("C", spl[p->i], 1) && ft_strncmp("F", spl[p->i], 1) &&
+				ft_strncmp("NO", spl[p->i], 2) && ft_strncmp("SO", spl[p->i], 2) &&
+				ft_strncmp("WE", spl[p->i], 2) && ft_strncmp("EA", spl[p->i], 2) &&
+				ft_strncmp("1", spl[p->i], 1))
+			free_exit("Error\nInvalid element\n");
+}
+
+
+/* 
+	search for NO, SO, WE, EA, S, F elems.
 	get wall textures paths and C, F rgb values 
 	get the index for last elem and first map line.
-	elemidxs[0] = lastelem
-	elemidxs[1] = firstmap
+	if "1" is found, count1 is incremented. if more than 1 found, error.
+	if last elem index is greater than first map index, error.
  */
-void	ft_search_elems(t_cube *cub, char **spl, int **elemidxs)
+void	ft_search_elems(t_cube *cub, char **spl)
 {
-	int	i;
+	t_parse	p;
 
-	i = 0;
-	while (spl[i])
+	ft_bzero(&p, sizeof(t_parse));
+	while (spl[p.i])
 	{
-		if (!ft_strncmp("1", spl[i], 1))
-			*(elemidxs[1]) = i;
-		else if (spl[i + 1] != NULL && !ft_strncmp("NO", spl[i], 2))
-			ft_save_path(spl[i + 1], i, elemidxs);
+		ft_search_elems_aux(cub, &p, spl);
+		/* if (!ft_strncmp("1", spl[i], 1))
+		{
+			elemidxs[1] = i;
+			count1++;
+		}
+		else if (spl[i + 1] && !ft_strncmp("NO", spl[i], 2))
+			ft_save_path(spl[i + 1], i, elemidxs[0], cub->no);
+		else if (spl[i + 1] && !ft_strncmp("SO", spl[i], 2))
+			ft_save_path(spl[i + 1], i, elemidxs[0], cub->so);
+		else if (spl[i + 1] && !ft_strncmp("WE", spl[i], 2))
+			ft_save_path(spl[i + 1], i, elemidxs[0], cub->we);
+		else if (spl[i + 1] && !ft_strncmp("EA", spl[i], 2))
+			ft_save_path(spl[i + 1], i, elemidxs[0], cub->ea);
+		else if (spl[i + 1] && !ft_strncmp("F", spl[i], 1))
+			ft_save_color(spl[i + 1], i, elemidxs[0], cub->f);
+		else if (spl[i + 1] && !ft_strncmp("C", spl[i], 1))
+			ft_save_color(spl[i + 1], i, elemidxs[0], cub->c);
+		else if (ft_strncmp("C", spl[i], 1) && ft_strncmp("F", spl[i], 1) &&
+				ft_strncmp("NO", spl[i], 2) && ft_strncmp("SO", spl[i], 2) &&
+				ft_strncmp("WE", spl[i], 2) && ft_strncmp("EA", spl[i], 2) &&
+				ft_strncmp("1", spl[i], 1))
+			free_exit("Error\nInvalid element\n"); */
+		p.i++;
 	}
+	if (p.count1 != 1 || (p.lastelem > p.firstmap))
+		free_exit("Error\nInvalid elements\n");
 }
 
 
 
 void	ft_get_elements(t_cube *cub, char *str)
 {
-	char	**spl;
+	char	**splspa;
 	int		i;
-	int		elemidxs[2];
 
 	i = 0;	
-	spl = ft_split(str, ' ');
-	ft_search_elems(cub, spl, &elemidxs);
-	while (spl[i])
+	splspa = ft_split(str, ' ');
+	ft_search_elems(cub, splspa);
+	while (splspa[i])
 	{
-		printf("%s\n", spl[i]);
+		printf("%s\n", splspa[i]);
 		i++;
 	}
 	
 	
 	
-	ft_free_split(spl);
+	ft_free_split(splspa);
 }
 
 
