@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/22 09:23:27 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/22 11:50:39 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* 
 	uses get_netx_line to read the file return it.
 */
-char	*ft_get_cube(int fd)
+char	*ft_get_cub(int fd)
 {
 	char	*line;
 	char	*tmp;
@@ -34,6 +34,22 @@ char	*ft_get_cube(int fd)
 	}
 	return (tmp);	
 }
+
+void	ft_get_elements(char *str)
+{
+	char	**spl;
+	int		i;
+
+	i = 0;	
+	spl = ft_split(str, ' ');
+	while (spl[i])
+	{
+		printf("%s\n", spl[i]);
+		i++;
+	}
+	ft_free_split(spl);
+}
+
 
 /* 
 	*.cub checks:
@@ -54,26 +70,20 @@ void	ft_checks(int fd)
 	char	*str;
 	char	**spl;
 
-	str = ft_get_cube(fd);
-	printf("%s\n", str);
+	str = ft_get_cub(fd);
+	ft_get_elements(str);
+	/* printf("%s\n", str);
 	printf("\n**************\n\n");
-	spl = ft_split(str, '\n');
+	spl = ft_split(str, '\n'); */
 	free(str);
-	int i = 0;
-	while (spl[i])
-	{
-		printf("%s\n", spl[i]);
-		i++;
-	}
-	ft_free_split(spl);
+	
 }
-
 
 /* main function */
 int	main(int argc, char **argv)
 {
 	int	fd;
-	
+
 	if (argc != 2)
 		return (printf("Error\nWrong number of arguments\n"), 0);
 	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 4))
