@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/22 11:50:39 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/22 13:20:00 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,46 @@ char	*ft_get_cub(int fd)
 	return (tmp);	
 }
 
-void	ft_get_elements(char *str)
+/* 
+	search for NO, SO, WE, EA, S, F, C, R elems.
+	get wall textures paths and C, F rgb values 
+	get the index for last elem and first map line.
+	elemidxs[0] = lastelem
+	elemidxs[1] = firstmap
+ */
+void	ft_search_elems(t_cube *cub, char **spl, int **elemidxs)
+{
+	int	i;
+
+	i = 0;
+	while (spl[i])
+	{
+		if (!ft_strncmp("1", spl[i], 1))
+			*(elemidxs[1]) = i;
+		else if (spl[i + 1] != NULL && !ft_strncmp("NO", spl[i], 2))
+			ft_save_path(spl[i + 1], i, elemidxs);
+	}
+}
+
+
+
+void	ft_get_elements(t_cube *cub, char *str)
 {
 	char	**spl;
 	int		i;
+	int		elemidxs[2];
 
 	i = 0;	
 	spl = ft_split(str, ' ');
+	ft_search_elems(cub, spl, &elemidxs);
 	while (spl[i])
 	{
 		printf("%s\n", spl[i]);
 		i++;
 	}
+	
+	
+	
 	ft_free_split(spl);
 }
 
@@ -65,13 +93,12 @@ void	ft_get_elements(char *str)
 		- only 1 player and valid characters (N, S, E, W)
 		- surrounded by walls
 */
-void	ft_checks(int fd)
+void	ft_checks(t_cube *cub, int fd)
 {
 	char	*str;
-	char	**spl;
 
 	str = ft_get_cub(fd);
-	ft_get_elements(str);
+	ft_get_elements(cub, str);
 	/* printf("%s\n", str);
 	printf("\n**************\n\n");
 	spl = ft_split(str, '\n'); */
@@ -83,6 +110,7 @@ void	ft_checks(int fd)
 int	main(int argc, char **argv)
 {
 	int	fd;
+	t_cube	cub;
 
 	if (argc != 2)
 		return (printf("Error\nWrong number of arguments\n"), 0);
@@ -91,6 +119,6 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (printf("Error\nFile not found\n"), 0);
-	ft_checks(fd);
+	ft_checks(&cub, fd);
 	return (0);
 }
