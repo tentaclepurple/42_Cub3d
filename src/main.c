@@ -6,96 +6,114 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/23 12:24:49 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:00:42 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cube.h"
 
-static char	**ft_freeall(char **tab, int k)
+static int	word_count(char const *s)
 {
-	while (k >= 0)
-	{
-		free(tab[k]);
-		k--;
-	}
-	free(tab);
-	return (NULL);
-}
-
-static int	ft_count(char *s)
-{
-	int	i;
-	int	count;
+	unsigned int	i;
+	unsigned int	flag;
+	int				num;
 
 	i = 0;
-	count = 0;
-	if (s[0] && (s[0] != ' ' || s[0] == '\n'))
-	{
-		count++;
-		i++;
-	}
+	flag = 0;
+	num = 0;
 	while (s[i])
 	{
-		if (s[i] == ' ' || s[i] == '\n')
-			i++;
-		else if (i != 0 && ((s[i] != ' ' && s[i - 1] == ' ') || ((s[i] != '\n') &&
-			(s[i - 1] == '\n'))))
+		if (s[i] != ' ' && s[i] != '\n')
+			flag = 1;
+		else if (flag && (s[i] == ' ' || s[i] == '\n'))
 		{
-			count++;
+			num++;
+			flag = 0;
+		}
+		i++;
+	}
+	if (flag)
+		num++;
+	return (num);
+}
+
+static int	str_char_len(char const *s)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (s[i] != ' ' && s[i] != '\n' && s[i])
+		i++;
+	return (i);
+}
+
+static char	*fill_word(char *wrd, char *str)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (str[i] != ' ' && str[i] != '\n' && str[i])
+	{
+		wrd[i] = str[i];
+		i++;
+	}
+	wrd[i] = '\0';
+	return (wrd);
+}
+
+static int	split_low(char **split, char const *s)
+{
+	char	*str;
+	char	*word;
+	int		len;
+	int		i;
+
+	str = (char *)s;
+	i = 0;
+	while (i < word_count(s))
+	{
+		len = str_char_len(str);
+		if (len > 0)
+		{
+			word = malloc(sizeof(char) * (len + 1));
+			if (word == NULL)
+				return (i + 1);
+			word = fill_word(word, str);
+			split[i] = word;
+			str += len;
 			i++;
 		}
 		else
-			i++;
+			str++;
+		while (*str == ' ' || *str == '\n')
+			str++;
 	}
-	return (count);
+	split[word_count(s)] = NULL;
+	return (0);
 }
 
-static char	**ft_strings(char **tab, char *s)
+char	**custom_split(char const *s)
 {
-	int	i;
-	int	start;
-	int	j;
+	char	**split;
+	int		err;
+	int		i;
 
-	i = 0;
-	j = 0;
-	while (s[i])
+	split = malloc(sizeof(char *) * (word_count(s) + 1));
+	if (split == NULL)
+		return (NULL);
+	err = split_low(split, s);
+	if (err)
 	{
-		if (i == 0 && (s[i] != ' ' || s[i] == '\n'))
-			start = 0;
-		if (i == 0 && (s[i] == ' ' || s[i] == '\n'))
-			i++;
-		if (i && (((s[i - 1] == ' ') && (s[i] != ' ')) || ((s[i - 1] == '\n') &&
-				(s[i] != '\n'))))
-			start = i;
-		if ((s[i] != ' ') && ((s[i + 1] == ' ') || ((s[i] != '\n') &&
-			((s[i + 1] == '\n') || (s[i + 1] == '\0')))))
+		i = 0;
+		while (i < err - 1)
 		{
-			printf("j: %i\n", j);
-			tab[j] = ft_substr(s, start, i - start + 1);
-			if (!tab[j])
-				return (ft_freeall(tab, j - 1));
-			j++;
+			free(split[i]);
+			i++;
 		}
-		i++;
+		free(split);
+		return (NULL);
 	}
-	return (tab);
-}
-
-char	**ft_split_spnl(char const *s)
-{
-	int		count;
-	char	**tab;
-
-	if (!s)
-		return (NULL);
-	count = ft_count((char *)s);
-	printf("count: %i\n", count);
-	tab = malloc(sizeof(char *) * (count + 1));
-	if (!tab)
-		return (NULL);
-	tab[count] = 0;
-	return (ft_strings(tab, (char *)s));
+	return (split);
 }
 
 void	free_exit(char *str, t_cube *cub)
@@ -105,7 +123,7 @@ void	free_exit(char *str, t_cube *cub)
 	free(cub->so);
 	free(cub->we);
 	free(cub->ea);
-	exit(0);
+	exit(-1);
 }
 
 /* 
@@ -132,19 +150,21 @@ char	*ft_get_cub(int fd)
 }
 
 //check if path is xpm and opens it to check if it is a valid path
-void	ft_save_path(t_cube *cub, char *path, t_parse *p, char *elem)
+void	ft_save_path(t_cube *cub, char *path, t_parse *p, char **elem)
 {
 	int fd;
 
-	printf("[path: %s]\n", path);
+	//printf("[path: %s]\n", path);
 	fd = open(path, O_RDONLY);
-	printf("fd: %i\n", fd);
+	//printf("fd: %i\n", fd);
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4) || fd == -1)
 		free_exit("Error\nInvalid pathKKK\n", cub);
-	free(elem);
-	elem = ft_strdup(path);
-	printf("elem: %s\n", elem);
+	free(*elem);
+	*elem = ft_strdup(path);
+	//printf("elem: %s\n", *elem);
 	p->lastelem = p->i;
+	p->i++;
+
 	
 	
 }
@@ -164,27 +184,20 @@ void	ft_save_color(t_cube *cub, char *path, t_parse *p, char *elem)
  */
 void	ft_search_elems_aux(t_cube *cub, t_parse *p, char **spl)
 {
-	printf("spl[%i]: %s\n", p->i, spl[p->i]);
+	//printf("spl[%i]: %s\n", p->i, spl[p->i]);
 	if (!ft_strncmp("1", spl[p->i], 1))
 		{
 			p->firstmap = p->i;
 			p->count1++;
 		}
 	else if (spl[p->i + 1] && !ft_strncmp("NO", spl[p->i], 2))
-	{
-		printf("i dentro de func: %i\n", p->i);
-		ft_save_path(cub, spl[p->i + 1], p, cub->no);
-		
-	}
+		ft_save_path(cub, spl[p->i + 1], p, &(cub->no));
 	else if (spl[p->i + 1] && !ft_strncmp("SO", spl[p->i], 2))
-	{
-		ft_save_path(cub, spl[p->i + 1], p, cub->so);
-		
-	}
+		ft_save_path(cub, spl[p->i + 1], p, &(cub->so));
 	else if (spl[p->i + 1] && !ft_strncmp("WE", spl[p->i], 2))
-		ft_save_path(cub, spl[p->i + 1], p, cub->we);
+		ft_save_path(cub, spl[p->i + 1], p, &(cub->we));
 	else if (spl[p->i + 1] && !ft_strncmp("EA", spl[p->i], 2))
-		ft_save_path(cub, spl[p->i + 1], p, cub->ea);
+		ft_save_path(cub, spl[p->i + 1], p, &(cub->ea));
 	/*else if (spl[p->i + 1] && !ft_strncmp("F", spl[p->i], 1))
 		ft_save_color(cub, spl[p->i + 1], p, cub->f);
 	else if (spl[p->i + 1] && !ft_strncmp("C", spl[p->i], 1))
@@ -193,7 +206,10 @@ void	ft_search_elems_aux(t_cube *cub, t_parse *p, char **spl)
 			ft_strncmp("NO", spl[p->i], 2) && ft_strncmp("SO", spl[p->i], 2) &&
 			ft_strncmp("WE", spl[p->i], 2) && ft_strncmp("EA", spl[p->i], 2) &&
 			ft_strncmp("1", spl[p->i], 1))
+	{
+		printf("spl[%i]: %s\n", p->i, spl[p->i]);			
 		free_exit("Error\nInvalid character\n", cub);
+	}
 }
 
 /* 
@@ -248,7 +264,7 @@ void	ft_get_elements(t_cube *cub, char *str)
 	int		i;
 
 	i = 0;	
-	splspa = ft_split_spnl(str);
+	splspa = custom_split(str);
 	while (splspa[i])
 	{
 		printf("%s\n", splspa[i]);
