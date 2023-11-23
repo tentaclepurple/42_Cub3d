@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/22 23:26:21 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:05:26 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct	s_parse
 
 char	*ft_get_cub(int fd);
 void	ft_checks(t_cube *cub, int fd);
+
+
 
 
 #endif

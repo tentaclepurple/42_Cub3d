@@ -6,11 +6,11 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:20:12 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/11/23 11:42:30 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:03:54 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cube.h"
+#include "../libft/libft.h"
 
 static char	**ft_freeall(char **tab, int k)
 {
@@ -39,7 +39,7 @@ static int	ft_count(char *s)
 	{
 		if (s[i] == ' ' || s[i] == '\n')
 			i++;
-		else if (i != 0 && (s[i] != ' ' && s[i - 1] == c) || (s[i] != '\n' &&
+		else if (i != 0 && (s[i] != ' ' && s[i - 1] == ' ') || (s[i] != '\n' &&
 			s[i - 1] == '\n'))
 		{
 			count++;
@@ -57,9 +57,9 @@ static char	**ft_strings(char **tab, char *s)
 	int	start;
 	int	j;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	while (s[i])
+	while (s[++i])
 	{
 		if (i == 0 && (s[i] != ' ' || s[i] == '\n'))
 			start = 0;
@@ -76,12 +76,11 @@ static char	**ft_strings(char **tab, char *s)
 				return (ft_freeall(tab, j - 1));
 			j++;
 		}
-		i++;
 	}
 	return (tab);
 }
 
-char	**ft_split(char const *s)
+char	**ft_split_spnl(char const *s)
 {
 	int		count;
 	char	**tab;

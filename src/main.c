@@ -6,11 +6,97 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/23 11:20:46 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:24:49 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cube.h"
+
+static char	**ft_freeall(char **tab, int k)
+{
+	while (k >= 0)
+	{
+		free(tab[k]);
+		k--;
+	}
+	free(tab);
+	return (NULL);
+}
+
+static int	ft_count(char *s)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	if (s[0] && (s[0] != ' ' || s[0] == '\n'))
+	{
+		count++;
+		i++;
+	}
+	while (s[i])
+	{
+		if (s[i] == ' ' || s[i] == '\n')
+			i++;
+		else if (i != 0 && ((s[i] != ' ' && s[i - 1] == ' ') || ((s[i] != '\n') &&
+			(s[i - 1] == '\n'))))
+		{
+			count++;
+			i++;
+		}
+		else
+			i++;
+	}
+	return (count);
+}
+
+static char	**ft_strings(char **tab, char *s)
+{
+	int	i;
+	int	start;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (i == 0 && (s[i] != ' ' || s[i] == '\n'))
+			start = 0;
+		if (i == 0 && (s[i] == ' ' || s[i] == '\n'))
+			i++;
+		if (i && (((s[i - 1] == ' ') && (s[i] != ' ')) || ((s[i - 1] == '\n') &&
+				(s[i] != '\n'))))
+			start = i;
+		if ((s[i] != ' ') && ((s[i + 1] == ' ') || ((s[i] != '\n') &&
+			((s[i + 1] == '\n') || (s[i + 1] == '\0')))))
+		{
+			printf("j: %i\n", j);
+			tab[j] = ft_substr(s, start, i - start + 1);
+			if (!tab[j])
+				return (ft_freeall(tab, j - 1));
+			j++;
+		}
+		i++;
+	}
+	return (tab);
+}
+
+char	**ft_split_spnl(char const *s)
+{
+	int		count;
+	char	**tab;
+
+	if (!s)
+		return (NULL);
+	count = ft_count((char *)s);
+	printf("count: %i\n", count);
+	tab = malloc(sizeof(char *) * (count + 1));
+	if (!tab)
+		return (NULL);
+	tab[count] = 0;
+	return (ft_strings(tab, (char *)s));
+}
 
 void	free_exit(char *str, t_cube *cub)
 {
@@ -162,7 +248,7 @@ void	ft_get_elements(t_cube *cub, char *str)
 	int		i;
 
 	i = 0;	
-	splspa = ft_split(str, '\n');
+	splspa = ft_split_spnl(str);
 	while (splspa[i])
 	{
 		printf("%s\n", splspa[i]);
