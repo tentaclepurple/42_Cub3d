@@ -6,11 +6,13 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/23 15:00:42 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/23 18:35:08 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cube.h"
+
+#include <stdlib.h>
 
 static int	word_count(char const *s)
 {
@@ -23,9 +25,9 @@ static int	word_count(char const *s)
 	num = 0;
 	while (s[i])
 	{
-		if (s[i] != ' ' && s[i] != '\n')
+		if (s[i] != ' ' && s[i] != '\n' && s[i] != ',')
 			flag = 1;
-		else if (flag && (s[i] == ' ' || s[i] == '\n'))
+		else if (flag && (s[i] == ' ' || s[i] == '\n' || s[i] == ','))
 		{
 			num++;
 			flag = 0;
@@ -42,7 +44,7 @@ static int	str_char_len(char const *s)
 	unsigned int	i;
 
 	i = 0;
-	while (s[i] != ' ' && s[i] != '\n' && s[i])
+	while (s[i] != ' ' && s[i] != '\n' && s[i] != ',' && s[i])
 		i++;
 	return (i);
 }
@@ -52,7 +54,7 @@ static char	*fill_word(char *wrd, char *str)
 	unsigned int	i;
 
 	i = 0;
-	while (str[i] != ' ' && str[i] != '\n' && str[i])
+	while (str[i] != ' ' && str[i] != '\n' && str[i] != ',' && str[i])
 	{
 		wrd[i] = str[i];
 		i++;
@@ -76,20 +78,18 @@ static int	split_low(char **split, char const *s)
 		if (len > 0)
 		{
 			word = malloc(sizeof(char) * (len + 1));
-			if (word == NULL)
+			if (!word)
 				return (i + 1);
 			word = fill_word(word, str);
-			split[i] = word;
+			split[i++] = word;
 			str += len;
-			i++;
 		}
 		else
 			str++;
-		while (*str == ' ' || *str == '\n')
+		while (*str == ' ' || *str == '\n' || *str == ',')
 			str++;
 	}
-	split[word_count(s)] = NULL;
-	return (0);
+	return (split[i] = NULL, 0);
 }
 
 char	**custom_split(char const *s)
@@ -99,7 +99,7 @@ char	**custom_split(char const *s)
 	int		i;
 
 	split = malloc(sizeof(char *) * (word_count(s) + 1));
-	if (split == NULL)
+	if (!split)
 		return (NULL);
 	err = split_low(split, s);
 	if (err)
@@ -154,20 +154,15 @@ void	ft_save_path(t_cube *cub, char *path, t_parse *p, char **elem)
 {
 	int fd;
 
-	//printf("[path: %s]\n", path);
 	fd = open(path, O_RDONLY);
-	//printf("fd: %i\n", fd);
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4) || fd == -1)
-		free_exit("Error\nInvalid pathKKK\n", cub);
+		free_exit("Error\nInvalid path\n", cub);
 	free(*elem);
 	*elem = ft_strdup(path);
-	//printf("elem: %s\n", *elem);
 	p->lastelem = p->i;
 	p->i++;
-
-	
-	
 }
+
 void	ft_save_color(t_cube *cub, char *path, t_parse *p, char *elem)
 {
 	(void)cub;
@@ -175,7 +170,6 @@ void	ft_save_color(t_cube *cub, char *path, t_parse *p, char *elem)
 	(void)p;
 	(void)elem;
 	p->lastelem = p->i;
-	
 }
 
 /* 
@@ -184,7 +178,6 @@ void	ft_save_color(t_cube *cub, char *path, t_parse *p, char *elem)
  */
 void	ft_search_elems_aux(t_cube *cub, t_parse *p, char **spl)
 {
-	//printf("spl[%i]: %s\n", p->i, spl[p->i]);
 	if (!ft_strncmp("1", spl[p->i], 1))
 		{
 			p->firstmap = p->i;
@@ -226,8 +219,7 @@ void	ft_search_elems(t_cube *cub, char **spl)
 	ft_bzero(&p, sizeof(t_parse));
 	while (spl[p.i])
 	{
-		printf("i: %i\n", p.i);
-		ft_search_elems_aux(cub, &p, spl);
+cd ..		ft_search_elems_aux(cub, &p, spl);
 		/* if (!ft_strncmp("1", spl[i], 1))
 		{
 			elemidxs[1] = i;
@@ -257,7 +249,6 @@ void	ft_search_elems(t_cube *cub, char **spl)
 }
 
 
-
 void	ft_get_elements(t_cube *cub, char *str)
 {
 	char	**splspa;
@@ -271,12 +262,8 @@ void	ft_get_elements(t_cube *cub, char *str)
 		i++;
 	}
 	ft_search_elems(cub, splspa);
-	
-	
-	
 	ft_free_split(splspa);
 }
-
 
 /* 
 	*.cub checks:
@@ -302,8 +289,8 @@ void	ft_checks(t_cube *cub, int fd)
 	printf("\n**************\n\n");
 	spl = ft_split(str, '\n'); */
 	free(str);
-	
 }
+
 void	init_cub(t_cube *cub)
 {
 	cub->no = ft_strdup("");
