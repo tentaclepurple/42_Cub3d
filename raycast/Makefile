@@ -1,9 +1,11 @@
 NAME = raycast
 LIBNAME = 	libft.a
-MLX = 		libmlx_Linux.a
+MLX = 		libmlx.a
+MLXDIR = ../mlx
+MLXEXEC = ../mlx/libmlx.a
 #NAMEBONUS = minishell_bonus
 
-SRC = 			raycaster_flat.c
+SRC = 			raycaster_flat.c ray_calc.c pixel_put.c
 #SRCBONUS = 	
 
 OBJ = $(SRC:.c=.o)
@@ -11,8 +13,8 @@ OBJ = $(SRC:.c=.o)
 
 #FLAGS = -Wall -Wextra -Werror -g3 -Ilibmlx -fsanitize=address
 FLAGS = -Wall -Wextra -Werror
-FLAGSLST = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz
-#MLXFLAGS = -framework OpenGL -framework AppKit
+#FLAGSLST = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz
+FLAGSLST = -framework OpenGL -framework AppKit
 NONE='\033[0m'
 GREEN='\033[32m'
 GRAY='\033[2;37m'
@@ -22,8 +24,8 @@ all: $(NAME)
 
 $(MLX):
 	@echo $(CURSIVE)$(GRAY) "     - Compiling MIINILIB $(MLX)..." $(NONE)
-	@make -C ../mlx-linux all
-	@cp ../mlx-linux/$(MLX) $(MLX)
+	@make -C $(MLXDIR) all
+	@cp $(MLXEXEC) $(MLX)
 	@echo $(GREEN)"- Compiled -"$(NONE)
 
 $(NAME): $(OBJ) $(LIBNAME) $(MLX)
@@ -48,7 +50,7 @@ $(LIBNAME):
 clean:
 	@echo $(CURSIVE)$(GRAY) "     - Removing object files..." $(NONE)
 	@$(MAKE) -C ../libft clean
-	@$(MAKE) -C ../mlx-linux clean
+	@$(MAKE) -C $(MLXDIR) clean
 	@rm -rf $(OBJ) $(OBJBONUS)
 
 fclean: clean
