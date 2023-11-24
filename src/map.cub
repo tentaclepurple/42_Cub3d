@@ -2,16 +2,18 @@ NO ../textures/texture1.xpm
 
 SO              ../textures/texture2.xpm
 WE       ../textures/texture3.xpm
+
+
 EA ../textures/texture4.xpm
 
 
 
 
-F 220,      100,0,90
+F 220,  3,    100
 
 
 
-        C 225,30,0
+        C 225,30,0  , 78
 
 
 
