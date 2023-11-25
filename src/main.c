@@ -6,13 +6,25 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/24 19:59:02 by imontero         ###   ########.fr       */
+/*   Updated: 2023/11/25 07:59:23 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cube.h"
 
 #include <stdlib.h>
+
+void	ft_print_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		printf("[%i]%s\n", i, map[i]);
+		i++;
+	}
+}
 
 static int	word_count(char const *s)
 {
@@ -117,6 +129,17 @@ char	**custom_split(char const *s)
 	return (split);
 }
 
+void	free_exit_mat(char *str, t_cube *cub)
+{
+	printf("%s", str);
+	free(cub->no);
+	free(cub->so);
+	free(cub->we);
+	free(cub->ea);
+	ft_free_split(cub->map);
+	exit(-1);
+}
+
 void	free_exit(char *str, t_cube *cub)
 {
 	printf("%s", str);
@@ -142,7 +165,7 @@ char	*ft_get_cub(t_cube *cub, int fd)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (ft_strnstr(line, "111", ft_strlen(line)) && !ft_strchr(line, ',') &&
+		if (ft_strnstr(line, "11", ft_strlen(line)) && !ft_strchr(line, ',') &&
 				!ft_strnstr(line, ".xpm", ft_strlen(line)) && cub->start_map == 0)
 			cub->start_map = count;	
 		count += ft_strlen(line);
@@ -249,11 +272,20 @@ void	ft_search_elems_aux(t_cube *cub, t_parse *p, char **spl)
 		cub->f = ft_save_color(spl, p, cub, p->countfc++);
 	else if (spl[p->i + 1] && !ft_strncmp("C", spl[p->i], 1))
 		cub->c = ft_save_color(spl, p, cub, p->countfc++);
-	else if (ft_strncmp("C", spl[p->i], 1) && ft_strncmp("F", spl[p->i], 1) &&
+	/* else if (ft_strncmp("C", spl[p->i], 1) && ft_strncmp("F", spl[p->i], 1) &&
 			ft_strncmp("NO", spl[p->i], 2) && ft_strncmp("SO", spl[p->i], 2) &&
 			ft_strncmp("WE", spl[p->i], 2) && ft_strncmp("EA", spl[p->i], 2) &&
-			ft_strncmp("1", spl[p->i], 1))
-		free_exit("Error\nUnexpected character\n", cub);
+			ft_strncmp("1", spl[p->i], 1) && (!ft_strncmp("1", spl[p->i], 1) && ft_strlen(spl[p->i]) > 1))
+	{
+		printf("spl[%i] ---> %s\n", p->i, spl[p->i]);
+		free_exit("Error\nUnexpected element/character\n", cub);
+	}	 */
+	
+	else
+	{
+		printf("spl[%i] ---> %s\n", p->i, spl[p->i]);
+		free_exit("Error\nUnexpected element/character\n", cub);
+	}	
 }
 
 /* 
@@ -311,17 +343,6 @@ char	*ft_extract_map(t_cube *cub, char *str)
 	return (ft_substr(str, cub->start_map, len));
 }
 
-void	ft_print_map(t_cube *cub)
-{
-	int	i;
-
-	i = 0;
-	while (cub->map[i])
-	{
-		printf("%s\n", cub->map[i]);
-		i++;
-	}
-}
 
 //get number of lines in map
 size_t	ft_matlen(char **str)
@@ -369,13 +390,20 @@ void	ft_check_map_perimeter(t_cube *cub)
 		{
 			if (i == 0 || i == ft_matlen(cub->map) - 1)
 			{
-				if (cub->map[i][j] != '1')
+				if (cub->map[i][j] != '1' && cub->map[i][j] != '.')
 					free_exit("Error\nMap not surrounded by walls\n", cub);
 			}
 			else if (j == 0 || j == ft_strlen(cub->map[i]) - 1)
 			{
-				if (cub->map[i][j] != '1')
+				if (cub->map[i][j] != '1' && cub->map[i][j] != '.')
 					free_exit("Error\nMap not surrounded by walls\n", cub);
+			}
+			else
+			{
+				if ((cub->map[i][j] != '1' && cub->map[i][j] != '.') &&
+						(cub->map[i - 1][j] == '.' || cub->map[i + 1][j] == '.' ||
+						cub->map[i][j - 1] == '.' || cub->map[i][j + 1] == '.'))
+					free_exit("Error\nMap not sorrounded by walls\n", cub);
 			}
 			j++;
 		}
@@ -426,7 +454,6 @@ void	ft_fill_map_aux(t_cube *cub, char **premap, int matlen, int targetlen)
 		}
 		i++;
 	}
-	ft_print_map(cub);
 	ft_check_map_perimeter(cub);
 }
 
@@ -435,7 +462,7 @@ void	ft_fill_map(t_cube *cub, char **premap)
 {
 	int	targetlen;
 	int	matlen;
-	
+
 	matlen = ft_matlen(premap);
 	targetlen = ft_longest_str(premap);
 	cub->map = malloc(sizeof(char *) * (matlen + 1));
@@ -443,23 +470,34 @@ void	ft_fill_map(t_cube *cub, char **premap)
 		free_exit("Error\nMalloc error\n", cub);
 	cub->map[matlen] = NULL;
 	ft_fill_map_aux(cub, premap, matlen, targetlen);
-	
-	
+}
+
+//check unexpected characters in map
+void	ft_check_premap(char **premap, t_cube *cub)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (premap[i])
+	{
+		j = 0;
+		while (premap[i][j])
+		{
+			if (!ft_strchr("012NSEW ", premap[i][j]))
+			{
+				ft_free_split(premap);
+				free_exit("Error\nUnexpected character(s) in map\n", cub);
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 /* 
-	*.cub checks:
-		- elements first, map last.
-		- valid elements in cub file:
-			- color for ceiling and floor:
-				F 220,100,0 or C 225,30,0 (RGB 0-255)
-			-texture for walls:
-				NO ./path_to_the_north_texture
-				SO ./path_to_the_south_texture
-				WE ./path_to_the_west_texture
-				EA ./path_to_the_east_texture
-		- only 1 player and valid characters (N, S, E, W)
-		- surrounded by walls
+	start all checkes
 */
 void	ft_checks(t_cube *cub, int fd)
 {
@@ -472,7 +510,9 @@ void	ft_checks(t_cube *cub, int fd)
 	mapstr = ft_extract_map(cub, str);
 	premap = ft_split(mapstr, '\n');
 	free(mapstr);
-	ft_fill_map(cub, premap);	
+	ft_check_premap(premap, cub);
+	ft_fill_map(cub, premap);
+	//ft_print_map(cub->map);	
 	free(str);
 	free_exit("agur\n", cub);
 }
