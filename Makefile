@@ -3,7 +3,14 @@ LIBNAME = 	libft.a
 MLX = 		libmlx.a
 #NAMEBONUS = minishell_bonus
 
-SRC = 			../src/main.c
+SRC = 			src/main.c \
+				src/custom_split.c \
+				src/elems_aux.c \
+				src/elems.c \
+				src/fillmap.c \
+				src/parse_aux.c \
+				src/errors.c
+
 #SRCBONUS = 	
 
 OBJ = $(SRC:.c=.o)
