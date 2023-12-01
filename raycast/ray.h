@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:54:08 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/11/24 13:07:12 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:22:43 by josu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAY_H
 # define RAY_H
 
-#include "../mlx/mlx.h"
+#include "../minilibx-linux/mlx.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>

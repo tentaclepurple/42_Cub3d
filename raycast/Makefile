@@ -1,8 +1,8 @@
 NAME = raycast
 LIBNAME = 	libft.a
 MLX = 		libmlx.a
-MLXDIR = ../mlx
-MLXEXEC = ../mlx/libmlx.a
+MLXDIR = ../minilibx-linux
+MLXEXEC = ../minilibx-linux/libmlx.a
 #NAMEBONUS = minishell_bonus
 
 SRC = 			raycaster_flat.c ray_calc.c pixel_put.c
@@ -13,8 +13,8 @@ OBJ = $(SRC:.c=.o)
 
 #FLAGS = -Wall -Wextra -Werror -g3 -Ilibmlx -fsanitize=address
 FLAGS = -Wall -Wextra -Werror
-#FLAGSLST = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz
-FLAGSLST = -framework OpenGL -framework AppKit
+FLAGSLST = -Lmlx -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz
+#FLAGSLST = -framework OpenGL -framework AppKit
 NONE='\033[0m'
 GREEN='\033[32m'
 GRAY='\033[2;37m'
