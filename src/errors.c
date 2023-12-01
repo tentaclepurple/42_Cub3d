@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 19:11:59 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/11/24 19:57:16 by imontero         ###   ########.fr       */
+/*   Created: 2023/11/25 08:41:58 by imontero          #+#    #+#             */
+/*   Updated: 2023/11/25 08:42:15 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../inc/cube.h"
 
-size_t	ft_strlen(const char *s)
+void	free_exit_mat(char *str, t_cube *cub)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	printf("%s", str);
+	free(cub->no);
+	free(cub->so);
+	free(cub->we);
+	free(cub->ea);
+	ft_free_split(cub->map);
+	exit(-1);
 }
-/*
-#include<stdio.h>
-#include<string.h>
 
-int	main(int argc, char **argv)
+void	free_exit(char *str, t_cube *cub)
 {
-	if (argc == 2)
-	{
-		printf("mine: %lu\n", ft_strlen(argv[1]));
-		printf("orig: %lu\n", strlen(argv[1]));
-	}
-	return (0);
-}*/
+	printf("%s", str);
+	free(cub->no);
+	free(cub->so);
+	free(cub->we);
+	free(cub->ea);
+	exit(-1);
+}

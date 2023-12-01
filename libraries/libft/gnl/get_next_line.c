@@ -40,23 +40,6 @@ char	*ft_fst_line(char *str)
 	return (line);
 }
 
-//Function that returns a pointer to the first 'c' char found. NULL if not found
-char	*ft_strchr(const char *s, int c)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	if (s[i] == (char)c)
-		return ((char *)&s[i]);
-	return (NULL);
-}
-
 //Function that takes out the first line of str
 char	*ft_cut_str(char *str)
 {
