@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/01 17:50:54 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/01 21:08:09 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
+#include "../inc/cube.h"
 
 void	ft_init_side(t_data dt, t_ray *ray)
 {
@@ -58,7 +58,7 @@ t_ray ft_init_ray(t_data dt, int x)
 	return (ray);
 }
 
-void	ft_calc_ray(t_ray *ray)
+void	ft_calc_ray(t_ray *ray, char **map)
 {
 	while(ray->hit == 0)
 	{
@@ -74,7 +74,7 @@ void	ft_calc_ray(t_ray *ray)
 			ray->mapY += ray->stepY;
 			ray->side = 1;
 		}
-		if(worldMap[ray->mapX][ray->mapY] > 0)
+		if(map[ray->mapX][ray->mapY] > 0)
 			ray->hit = 1;
 		if(ray->side == 0)
 			ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
@@ -85,9 +85,11 @@ void	ft_calc_ray(t_ray *ray)
 
 void	ft_update_img(t_data *dt)
 {
-	dt->img = mlx_new_image(dt->mlx, screenHeight, screenHeight);
-	dt->addr = mlx_get_data_addr(dt->img, &dt->bits_per_pixel, &dt->line_length,
-								&dt->endian);
+	dt->img_pp.img = mlx_new_image(dt->mlx, screenWidth, screenHeight);
+	dt->img_pp.addr = (int *)mlx_get_data_addr(dt->img_pp.img, &dt->img_pp.bits_per_pixel, &dt->img_pp.line_length,
+								&dt->img_pp.endian);
+	
+
 	for(int x = 0; x < dt->w; x++)
 	{
 		t_ray	ray;
@@ -95,7 +97,7 @@ void	ft_update_img(t_data *dt)
 		t_draw	draw;
 		
 		ray = ft_init_ray(*dt, x);
-		ft_calc_ray(&ray);
+		ft_calc_ray(&ray, dt->info.map);
 		lineHeight = (int)(dt->h / ray.perpWallDist);
 		draw.drawStart = -lineHeight / 2 + dt->h / 2;
 		if(draw.drawStart < 0)
@@ -104,7 +106,7 @@ void	ft_update_img(t_data *dt)
 		if(draw.drawEnd >= dt->h)
 			draw.drawEnd = dt->h - 1;
 		//texturing calculations
-		draw.texNum = worldMap[ray.mapX][ray.mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+		draw.texNum = dt->info.map[ray.mapX][ray.mapY] - 1; //1 subtracted from it so that texture 0 can be used!
 		//calculate value of wallX
 		if (ray.side == 0)
 			draw.wallX = dt->pos_dir.posY + ray.perpWallDist * ray.rayDirY;
@@ -119,6 +121,6 @@ void	ft_update_img(t_data *dt)
 			draw.texX = texWidth - draw.texX - 1;
 		my_mlx_line_put(dt, x, draw, ray.side, lineHeight);
 	}
-	mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->img, 0, 0);
-	mlx_destroy_image(dt->mlx,dt->img);
+	mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->img_pp.img, 0, 0);
+	mlx_destroy_image(dt->mlx,dt->img_pp.img);
 }

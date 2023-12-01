@@ -2,12 +2,12 @@
 USER_NAME = bestGroup
 # Compiler and flags
 CC        = gcc
-CFLAGS    = -Wall -Wextra -Werror -I $(INC_DIR) -I $(MINILIBX_DIR) -I $(LIBFT_DIR)/include -O3 -g3
+CFLAGS    = -Wall -Wextra -Werror -I $(INC_DIR) -I $(MINILIBX_DIR) -I $(LIBFT_DIR)/include -O3 -g3 -fsanitize=address
 # Platform to run project (Linux and Mac)
 PLATFORM  := $(shell uname)
 # Directories
 SRC_DIR   = src/
-INC_DIR   = src/
+INC_DIR   = inc/
 LIBFT_DIR = libraries/libft/
 OBJ_DIR   = src/
 ifeq  ($(PLATFORM),Linux)
@@ -20,7 +20,18 @@ LINKING = -lmlx -framework OpenGL -framework AppKit
 BIN_DIR   = bin/IOS/
 endif
 # Source files
-SRC_FILE = pixel_put.c ray_calc.c raycaster_flat.c texture.c
+SRC_FILE = 	pixel_put.c \
+			ray_calc.c \
+			raycaster_flat.c \
+			texture.c \
+			custom_split.c \
+			elems_aux.c \
+			elems.c \
+			fillmap.c \
+			parse_aux.c \
+			errors.c \
+			main.c
+
 SRC      = $(addprefix $(SRC_DIR), $(SRC_FILE))
 OBJ_FILE = $(SRC_FILE:.c=.o)
 OBJ      = $(addprefix $(OBJ_DIR), $(OBJ_FILE))

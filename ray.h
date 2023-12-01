@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:54:08 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/01 18:00:13 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/01 18:48:42 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,17 @@ typedef struct s_img
 typedef struct	s_data {
 	void	*mlx;
 	void	*mlx_w;
-	void	*img;
+	/*void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
-	int		endian;
+	int		endian;*/
+	t_img		img_pp;
 	t_pos_dir	pos_dir;
-	int		w;
-	int		h;
-	int	**textures;
-	t_img	text;
+	int			w;
+	int			h;
+	t_img		text;
+	t_cube		info;
 }				t_data;
 
 
@@ -107,7 +108,7 @@ t_img ft_read_texture(void *mlx);
 #define RIGTHKEY 124
 #define LEFTKEY 123
 
-extern int worldMap[mapWidth][mapHeight];
+
 
 
 #endif

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_flat.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/01 17:56:13 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/01 20:46:37 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
+#include "../inc/cube.h"
 
 int worldMap[mapWidth][mapHeight]=
 {
@@ -85,22 +85,23 @@ int	ft_input(int key, void *param)
 	return (0);
 }
 
-int	main(void)
+void	init_game(t_cube info)
 {
 	t_data	dt;
 
+	dt.info = info;
 	dt.mlx = mlx_init();
 	dt.w = screenWidth;
 	dt.h = screenHeight;
-	dt.pos_dir.posX = 22;
-	dt.pos_dir.posY = 16;  //x and y start position
+	dt.pos_dir.posX = 3;
+	dt.pos_dir.posY = 10;  //x and y start position
 	dt.pos_dir.dirX = -1;
 	dt.pos_dir.dirY = 0; //initial direction vector
 	dt.pos_dir.planeX = 0;
 	dt.pos_dir.planeY = 0.66; //the 2d raycaster version of camera plane
 	//double time = 0; //time of current frame
 	//double oldTime = 0; //time of previous frame
-	dt.textures = ft_gen_texture();
+
 	dt.text = ft_read_texture(dt.mlx);
 	dt.mlx_w = mlx_new_window(dt.mlx, screenWidth, screenHeight, "Raycaster");
 	ft_update_img(&dt);
@@ -108,5 +109,4 @@ int	main(void)
 	mlx_key_hook(dt.mlx_w, *ft_input, &dt);
 	mlx_hook(dt.mlx_w, 17, 0, ft_close, NULL);
 	mlx_loop(dt.mlx);
-	return (0);
 }

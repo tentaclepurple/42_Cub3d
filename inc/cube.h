@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/25 09:15:07 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/01 20:40:58 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,40 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include "../libft/libft.h"
+# include <math.h>
+
+# include "../libraries/libft/libft.h"
+# include "../libraries/minilib/minilibx_opengl_20191021/mlx.h"
+
+typedef struct	s_pos_dir {
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+}				t_pos_dir;
+
+typedef struct	s_ray {
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	int		mapX;
+	int		mapY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	int		stepX;
+	int		stepY;
+	double	perpWallDist;
+	int		hit;
+	int		side;
+}				t_ray;
 
 typedef struct	s_cube
 {
 	char		**map;
-	int			res_x;
-	int			res_y;
 	char		*no;
 	char		*so;
 	char		*we;
@@ -33,6 +60,41 @@ typedef struct	s_cube
 	int			start_map;
 }				t_cube;
 
+typedef struct s_img
+{
+	void	*img;
+	int		*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		x;
+	int		y;
+} 				t_img;
+
+typedef struct	s_data {
+	void	*mlx;
+	void	*mlx_w;
+	/*void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;*/
+	t_img		img_pp;
+	t_pos_dir	pos_dir;
+	int			w;
+	int			h;
+	t_img		text;
+	t_cube		info;
+}				t_data;
+
+typedef struct	s_draw {
+	int		drawStart;
+	int		drawEnd;
+	int		texNum;
+	int		texX;
+	double	wallX;
+}				t_draw;
+
 typedef struct	s_parse
 {
 	int i;
@@ -40,8 +102,11 @@ typedef struct	s_parse
 	int firstmap;
 	int counttx;
 	int countfc;
-
 }				t_parse;
+
+
+void	ft_print_map(char **map);
+
 
 /*
 	parse
@@ -80,6 +145,36 @@ void	init_cub(t_cube *cub);
 void	free_exit(char *str, t_cube *cub);
 void	free_exit_mat(char *str, t_cube *cub);
 
+//ray_calc
+void	ft_update_img(t_data *dt);
 
+//pixel_put
+int		ft_close(int key, void *param);
+void	my_mlx_line_put(t_data *data, int x, t_draw draw, int side, int lineHeight);
+
+//texture
+int		**ft_gen_texture(void);
+void	ft_free_textures(int **textures);
+t_img	 ft_read_texture(void *mlx);
+
+//game
+void	init_game(t_cube info);
+
+#define screenWidth 640
+#define screenHeight 640
+#define mapWidth 24
+#define mapHeight 24
+#define texWidth 32
+#define texHeight 32
+//LINUX
+/* #define UPKEY 65362
+#define DOWNKEY 65364
+#define RIGTHKEY 65363
+#define LEFTKEY 65361 */
+//MAC
+#define UPKEY 126
+#define DOWNKEY 125
+#define RIGTHKEY 124
+#define LEFTKEY 123
 
 #endif

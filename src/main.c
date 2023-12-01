@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/25 09:37:19 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/01 20:45:52 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	ft_checks(t_cube *cub, int fd)
 	ft_fill_map(cub, premap);
 	//ft_print_map(cub->map);	
 	free(str);
-	free_exit("agur\n", cub);
+	
 }
 
 
@@ -110,5 +110,7 @@ int	main(int argc, char **argv)
 	if (fd == -1)
 		free_exit("Error\nFile not found\n", &cub);
 	ft_checks(&cub, fd);
+	init_game(cub);
+	free_exit("agur\n", &cub);
 	return (0);
 }

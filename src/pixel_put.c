@@ -3,36 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_put.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:33 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/01 18:05:19 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/01 21:13:39 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
+#include "../inc/cube.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	char	*dst;
+	int	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->img_pp.addr + (y * data->img_pp.line_length / 4 + x);
 	*(unsigned int*)dst = color;
 }
 
 void	my_mlx_line_put(t_data *data, int x, t_draw draw, int side, int lineHeight)
 {
+	//ft_print_map(data->info.map);
 	// How much to increase the texture coordinate per screen pixel
-      double step = 1.0 * texHeight / lineHeight;
-      int   color;
+	double step = 1.0 * texHeight / lineHeight;
+	int   color;
       // Starting texture coordinate
-      double texPos = (draw.drawStart - data->h / 2 + lineHeight / 2) * step;
-      int j = 0;
+	double texPos = (draw.drawStart - data->h / 2 + lineHeight / 2) * step;
+    int j = 0;
       //for(int y = draw.drawStart; y<draw.drawEnd; y++)
-      for(int y = 0; y<screenHeight; y++)
-      {
-        if (j == data->text.line_length)
-            j = 0;
+    for(int y = 0; y<screenHeight; y++)
+    {
+	if (j == data->text.line_length)
+		j = 0;
         // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
         //int texY = (int)texPos & (texHeight - 1);
         texPos += step;
@@ -56,8 +57,8 @@ void	my_mlx_line_put(t_data *data, int x, t_draw draw, int side, int lineHeight)
         //if(side == 1) color = (color >> 1) & 8355711;
         if(side == 1)
             j++;
-        my_mlx_pixel_put(data, x, y, color);
-      }
+		my_mlx_pixel_put(data, x, y, color);
+	}
 }
 
 int	ft_close(int key, void *param)
