@@ -1,56 +1,74 @@
-NAME = cube3D
-LIBNAME = 	libft.a
-MLX = 		libmlx.a
-#NAMEBONUS = minishell_bonus
-
-SRC = 			../src/main.c
-#SRCBONUS = 	
-
-OBJ = $(SRC:.c=.o)
-#OBJBONUS = $(SRCBONUS:.c=.o)
-
-FLAGS = -Wall -Wextra -Werror -g3 -Ilibmlx -fsanitize=address
-MLXFLAGS = -framework OpenGL -framework AppKit
-NONE='\033[0m'
-GREEN='\033[32m'
-GRAY='\033[2;37m'
-CURSIVE='\033[3m'
+# Coder Alias
+USER_NAME = bestGroup
+# Compiler and flags
+CC        = gcc
+CFLAGS    = -Wall -Wextra -Werror -I $(INC_DIR) -I $(MINILIBX_DIR) -I $(LIBFT_DIR)/include -O3 -g3
+# Platform to run project (Linux and Mac)
+PLATFORM  := $(shell uname)
+# Directories
+SRC_DIR   = src/
+INC_DIR   = src/
+LIBFT_DIR = libraries/libft/
+OBJ_DIR   = src/
+ifeq  ($(PLATFORM),Linux)
+MINILIBX_DIR = libraries/minilib/minilibx-linux/
+LINKING = -lmlx_Linux -lXext -lX11 -lm
+BIN_DIR   = bin/linux/
+else
+MINILIBX_DIR = libraries/minilib/minilibx_opengl_20191021/
+LINKING = -lmlx -framework OpenGL -framework AppKit
+BIN_DIR   = bin/IOS/
+endif
+# Source files
+SRC_FILE = pixel_put.c ray_calc.c raycaster_flat.c texture.c
+SRC      = $(addprefix $(SRC_DIR), $(SRC_FILE))
+OBJ_FILE = $(SRC_FILE:.c=.o)
+OBJ      = $(addprefix $(OBJ_DIR), $(OBJ_FILE))
+# Binary name for your program
+CODE_BIN = $(BIN_DIR)cub3D
+# Static library
+LIBFT    = $(LIBFT_DIR)libft.a
+MINILIBX = $(MINILIBX_DIR)libmlx.a
+# Output executable
+NAME     = cub3D
+# Create the obj/ and bin/ directories if they don't exist
+$(shell mkdir -p $(OBJ_DIR))
+# Variable to control if the library has been built
+LIBFT_BUILT    = no
+MINILIBX_BUILT = no
 
 all: $(NAME)
 
-mlx:
-	make -C libmlx
-	cp libmlx/$(MLX) $(MLX)
+$(NAME): $(LIBFT) $(MINILIBX) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT_DIR) -lft -L/usr/lib -L$(MINILIBX_DIR) $(LINKING) -o $@
+	@echo "✔ $(USER_NAME)'s $(NAME) compilation"
 
-$(NAME): $(OBJ) $(LIBNAME)
-	@echo $(CURSIVE)$(GRAY) "     - Compiling $(NAME)..." $(NONE)
-	@gcc $(FLAGS)   $(OBJ) $(LIBNAME) -o $(NAME)
-	@echo $(GREEN)"- Compiled -"$(NONE)
+$(LIBFT):
+	@if [ "$(LIBFT_BUILT)" = "no" ]; then \
+		$(MAKE) -C $(LIBFT_DIR); \
+		LIBFT_BUILT=yes; \
+	fi
 
-bonus: $(OBJBONUS) $(LIBNAME)
-	@echo $(CURSIVE)$(GRAY) "     - Compiling $(NAMEBONUS)..." $(NONE)
-	@gcc $(FLAGS)   $(OBJBONUS) $(LIBNAME) -o $(NAMEBONUS)
-	@echo $(GREEN)"- Compiled -"$(NONE)
+$(MINILIBX):
+	@if [ "$(MINILIBX_BUILT)" = "no" ]; then \
+		$(MAKE) -C $(MINILIBX_DIR); \
+		MINILIBX_BUILT=yes; \
+	fi
 
-$(LIBNAME):
-	@echo $(CURSIVE)$(GRAY) "     - Compiling LIBFT $(LIBNAME)..." $(NONE)
-	@$(MAKE) -C ./libft all
-	@cp ./libft/libft.a $(LIBNAME)
-	@echo $(GREEN)"- Compiled -"$(NONE)
-
-%.o: %.c
-	$(CC) -c $(FLAGS) $^ -o $@
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 clean:
-	@echo $(CURSIVE)$(GRAY) "     - Removing object files..." $(NONE)
-	@$(MAKE) -C ./libft clean
-	@rm -rf $(OBJ) $(OBJBONUS)
+	$(RM) $(OBJ)
+	@echo "✔ $(USER_NAME)'s $(NAME) .o files removal"
+	$(MAKE) -C $(LIBFT_DIR) fclean
+	$(MAKE) -C $(MINILIBX_DIR) clean
 
 fclean: clean
-	@echo $(CURSIVE)$(GRAY) "     - Removing $(NAME) And $(LIBNAME)..." $(NONE)
-	@$(MAKE) -C ./libft fclean
-	@rm -rf $(NAME)  $(NAMEBONUS) $(LIBNAME)
+	$(RM) $(NAME)
+	@echo "✔ $(USER_NAME)'s $(NAME) executable and .o files removal"
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
