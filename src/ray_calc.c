@@ -6,7 +6,7 @@
 /*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/01 17:50:54 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/01 20:58:22 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ void	ft_calc_ray(t_ray *ray)
 		}
 		if(worldMap[ray->mapX][ray->mapY] > 0)
 			ray->hit = 1;
-		if(ray->side == 0)
-			ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
-		else
-			ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
 	}
+	if(ray->side == 0)
+		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
+	else
+		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
 }
 
 void	ft_update_img(t_data *dt)
@@ -103,8 +103,10 @@ void	ft_update_img(t_data *dt)
 		draw.drawEnd = lineHeight / 2 + dt->h / 2;
 		if(draw.drawEnd >= dt->h)
 			draw.drawEnd = dt->h - 1;
-		//texturing calculations
-		draw.texNum = worldMap[ray.mapX][ray.mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+		//texturing chose deppending on side hit
+		draw.texNum = 0;
+		if(ray.side == 0)
+			draw.texNum = 1;
 		//calculate value of wallX
 		if (ray.side == 0)
 			draw.wallX = dt->pos_dir.posY + ray.perpWallDist * ray.rayDirY;
@@ -112,12 +114,12 @@ void	ft_update_img(t_data *dt)
 			draw.wallX = dt->pos_dir.posX + ray.perpWallDist * ray.rayDirX;
 		draw.wallX -= floor((draw.wallX));
 		//x coordinate on the texture
-		draw.texX = (int)draw.wallX * (double)texWidth;
+		draw.texX = (int)(draw.wallX * (double)texWidth);
 		if(ray.side == 0 && ray.rayDirX > 0)
 			draw.texX = texWidth - draw.texX - 1;
 		if(ray.side == 1 && ray.rayDirY < 0)
 			draw.texX = texWidth - draw.texX - 1;
-		my_mlx_line_put(dt, x, draw, ray.side, lineHeight);
+		my_mlx_line_put(dt, x, draw, lineHeight);
 	}
 	mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->img, 0, 0);
 	mlx_destroy_image(dt->mlx,dt->img);

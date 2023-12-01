@@ -6,7 +6,7 @@
 /*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:54:08 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/01 18:00:13 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/01 20:40:48 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ typedef struct	s_data {
 	int		w;
 	int		h;
 	int	**textures;
-	t_img	text;
+	//CAMBIO
+	t_img	text[4];
 }				t_data;
 
 
@@ -83,19 +84,20 @@ void	ft_update_img(t_data *dt);
 
 //pixel_put
 int	ft_close(int key, void *param);
-void	my_mlx_line_put(t_data *data, int x, t_draw draw, int side, int lineHeight);
+void	my_mlx_line_put(t_data *data, int x, t_draw draw, int lineHeight);
 
 //texture
-int	**ft_gen_texture(void);
+int		**ft_gen_texture(void);
 void	ft_free_textures(int **textures);
-t_img ft_read_texture(void *mlx);
+//CAMBIO
+void ft_read_textures(t_data *dt);
 
 #define screenWidth 640
 #define screenHeight 640
 #define mapWidth 24
 #define mapHeight 24
-#define texWidth 32
-#define texHeight 32
+#define texWidth 128
+#define texHeight 128
 //LINUX
 /* #define UPKEY 65362
 #define DOWNKEY 65364

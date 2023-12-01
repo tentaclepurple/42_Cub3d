@@ -6,7 +6,7 @@
 /*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/01 17:56:13 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/01 20:41:20 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ int	main(void)
 	dt.pos_dir.planeY = 0.66; //the 2d raycaster version of camera plane
 	//double time = 0; //time of current frame
 	//double oldTime = 0; //time of previous frame
-	dt.textures = ft_gen_texture();
-	dt.text = ft_read_texture(dt.mlx);
+	ft_read_textures(&dt);
 	dt.mlx_w = mlx_new_window(dt.mlx, screenWidth, screenHeight, "Raycaster");
 	ft_update_img(&dt);
 	
