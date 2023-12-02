@@ -6,7 +6,7 @@
 /*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:54:08 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/01 20:40:48 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/02 11:47:08 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,16 @@ typedef struct	s_draw {
 	int		texNum;
 	int		texX;
 	double	wallX;
+	//CAMBIO
+	int		lineHeight;
 }				t_draw;
 //ray_calc
 void	ft_update_img(t_data *dt);
 
 //pixel_put
 int	ft_close(int key, void *param);
-void	my_mlx_line_put(t_data *data, int x, t_draw draw, int lineHeight);
+//CAMBIO
+void	my_mlx_line_put(t_data *data, int x, t_draw draw);
 
 //texture
 int		**ft_gen_texture(void);

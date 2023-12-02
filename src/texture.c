@@ -6,7 +6,7 @@
 /*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:25:04 by josu              #+#    #+#             */
-/*   Updated: 2023/12/01 21:00:42 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/02 12:25:58 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_img ft_read_texture(void *mlx, char *name)
 
 void ft_read_textures(t_data *dt)
 {
-  dt->text[0] = ft_read_texture(dt->mlx, "./textures/NO.xpm");
-  dt->text[1] = ft_read_texture(dt->mlx, "./textures/SO.xpm");
+  dt->text[0] = ft_read_texture(dt->mlx, "./textures/SO.xpm");
+  dt->text[1] = ft_read_texture(dt->mlx, "./textures/NO.xpm");
   dt->text[2] = ft_read_texture(dt->mlx, "./textures/EA.xpm");
   dt->text[3] = ft_read_texture(dt->mlx, "./textures/WE.xpm");
 }
