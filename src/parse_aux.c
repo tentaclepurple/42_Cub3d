@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:38:49 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/25 08:57:32 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:32:22 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*ft_get_cub(t_cube *cub, int fd)
 	{
 		if (ft_strnstr(line, "11", ft_strlen(line)) && !ft_strchr(line, ',') &&
 				!ft_strnstr(line, ".xpm", ft_strlen(line)) && cub->start_map == 0)
-			cub->start_map = count;	
+			cub->start_map = count;
 		count += ft_strlen(line);
 		aux = ft_strjoin(tmp, line);
 		free(tmp);

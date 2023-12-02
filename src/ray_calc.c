@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/01 21:08:09 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:51:15 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_ray ft_init_ray(t_data dt, int x)
 	return (ray);
 }
 
-void	ft_calc_ray(t_ray *ray, char **map)
+void	cd ft_calc_ray(t_ray *ray, int **map)
 {
 	while(ray->hit == 0)
 	{
@@ -86,7 +86,7 @@ void	ft_calc_ray(t_ray *ray, char **map)
 void	ft_update_img(t_data *dt)
 {
 	dt->img_pp.img = mlx_new_image(dt->mlx, screenWidth, screenHeight);
-	dt->img_pp.addr = (int *)mlx_get_data_addr(dt->img_pp.img, &dt->img_pp.bits_per_pixel, &dt->img_pp.line_length,
+	dt->img_pp.addr = mlx_get_data_addr(dt->img_pp.img, &dt->img_pp.bits_per_pixel, &dt->img_pp.line_length,
 								&dt->img_pp.endian);
 	
 
@@ -97,7 +97,7 @@ void	ft_update_img(t_data *dt)
 		t_draw	draw;
 		
 		ray = ft_init_ray(*dt, x);
-		ft_calc_ray(&ray, dt->info.map);
+		ft_calc_ray(&ray, dt->info.imap);
 		lineHeight = (int)(dt->h / ray.perpWallDist);
 		draw.drawStart = -lineHeight / 2 + dt->h / 2;
 		if(draw.drawStart < 0)
@@ -106,7 +106,7 @@ void	ft_update_img(t_data *dt)
 		if(draw.drawEnd >= dt->h)
 			draw.drawEnd = dt->h - 1;
 		//texturing calculations
-		draw.texNum = dt->info.map[ray.mapX][ray.mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+		draw.texNum = dt->info.imap[ray.mapX][ray.mapY] - 1; //1 subtracted from it so that texture 0 can be used!
 		//calculate value of wallX
 		if (ray.side == 0)
 			draw.wallX = dt->pos_dir.posY + ray.perpWallDist * ray.rayDirY;

@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:54:31 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/25 08:55:44 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:34:09 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,7 @@ void	ft_search_elems_aux(t_cube *cub, t_parse *p, char **spl)
 		cub->f = ft_save_color(spl, p, cub, p->countfc++);
 	else if (spl[p->i + 1] && !ft_strncmp("C", spl[p->i], 1))
 		cub->c = ft_save_color(spl, p, cub, p->countfc++);
-	/* else if (ft_strncmp("C", spl[p->i], 1) && ft_strncmp("F", spl[p->i], 1) &&
-			ft_strncmp("NO", spl[p->i], 2) && ft_strncmp("SO", spl[p->i], 2) &&
-			ft_strncmp("WE", spl[p->i], 2) && ft_strncmp("EA", spl[p->i], 2) &&
-			ft_strncmp("1", spl[p->i], 1) && (!ft_strncmp("1", spl[p->i], 1) && ft_strlen(spl[p->i]) > 1))
-	{
-		printf("spl[%i] ---> %s\n", p->i, spl[p->i]);
-		free_exit("Error\nUnexpected element/character\n", cub);
-	}	 */
 	else
-	{
-		printf("spl[%i] ---> %s\n", p->i, spl[p->i]);
 		free_exit("Error\nUnexpected element/character\n", cub);
-	}	
 }
 

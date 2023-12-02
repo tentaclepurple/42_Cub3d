@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/01 20:40:58 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:40:33 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,13 @@ typedef struct	s_ray {
 typedef struct	s_cube
 {
 	char		**map;
+	int			**imap;
 	char		*no;
 	char		*so;
 	char		*we;
 	char		*ea;
+	int			map_size[2];
+	int			pl_pos[3];
 	int			f;
 	int			c;
 	int			start_map;
@@ -63,7 +66,7 @@ typedef struct	s_cube
 typedef struct s_img
 {
 	void	*img;
-	int		*addr;
+	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;

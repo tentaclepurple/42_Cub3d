@@ -1,5 +1,5 @@
 # Coder Alias
-USER_NAME = bestGroup
+USER_NAME = Josu&Iban
 # Compiler and flags
 CC        = gcc
 CFLAGS    = -Wall -Wextra -Werror -I $(INC_DIR) -I $(MINILIBX_DIR) -I $(LIBFT_DIR)/include -O3 -g3 -fsanitize=address
