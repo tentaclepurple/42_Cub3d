@@ -20,7 +20,7 @@ LINKING = -lmlx -framework OpenGL -framework AppKit
 BIN_DIR   = bin/IOS/
 endif
 # Source files
-SRC_FILE = pixel_put.c ray_calc.c raycaster_flat.c texture.c
+SRC_FILE = pixel_put.c ray_calc.c raycaster_flat.c texture.c move.c
 SRC      = $(addprefix $(SRC_DIR), $(SRC_FILE))
 OBJ_FILE = $(SRC_FILE:.c=.o)
 OBJ      = $(addprefix $(OBJ_DIR), $(OBJ_FILE))

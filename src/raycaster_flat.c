@@ -6,7 +6,7 @@
 /*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/01 20:41:20 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/02 17:56:10 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,49 +40,57 @@ int worldMap[mapWidth][mapHeight]=
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
-int	ft_input(int key, void *param)
+
+int	ft_press_key(int key, void *param)
 {
-	double	moveSpeed = 0.5;
-	double	rotSpeed = 0.1;
 	t_data	*dt;
 	
 	dt = (t_data *)param;
-	if ((key == RIGTHKEY || key == 2))
-	{
-		double oldDirX = dt->pos_dir.dirX;
-		dt->pos_dir.dirX = dt->pos_dir.dirX * cos(-rotSpeed) - dt->pos_dir.dirY * sin(-rotSpeed);
-		dt->pos_dir.dirY = oldDirX * sin(-rotSpeed) + dt->pos_dir.dirY * cos(-rotSpeed);
-		double oldPlaneX = dt->pos_dir.planeX;
-		dt->pos_dir.planeX = dt->pos_dir.planeX * cos(-rotSpeed) - dt->pos_dir.planeY * sin(-rotSpeed);
-		dt->pos_dir.planeY = oldPlaneX * sin(-rotSpeed) + dt->pos_dir.planeY * cos(-rotSpeed);
-	}
-	else if ((key == LEFTKEY || key == 0))
-	{
-		double oldDirX = dt->pos_dir.dirX;
-		dt->pos_dir.dirX = dt->pos_dir.dirX * cos(rotSpeed) - dt->pos_dir.dirY * sin(rotSpeed);
-		dt->pos_dir.dirY = oldDirX * sin(rotSpeed) + dt->pos_dir.dirY * cos(rotSpeed);
-		double oldPlaneX = dt->pos_dir.planeX;
-		dt->pos_dir.planeX = dt->pos_dir.planeX * cos(rotSpeed) - dt->pos_dir.planeY * sin(rotSpeed);
-		dt->pos_dir.planeY = oldPlaneX * sin(rotSpeed) + dt->pos_dir.planeY * cos(rotSpeed);
-	}
+	if (key == RIGHTKEY)
+		dt->move.rright = 1;
+	else if (key == LEFTKEY)
+		dt->move.rleft = 1;
 	else if ((key == DOWNKEY || key == 1))
-	{
-		if (worldMap[(int)(dt->pos_dir.posX - dt->pos_dir.dirX * moveSpeed)][(int)dt->pos_dir.posY] == 0)
-			dt->pos_dir.posX -= dt->pos_dir.dirX * moveSpeed;
-		if (worldMap[(int)dt->pos_dir.posX][(int)(dt->pos_dir.posY - dt->pos_dir.dirY * moveSpeed)] == 0)
-			dt->pos_dir.posY -= dt->pos_dir.dirY * moveSpeed;
-	}
+		dt->move.mback = 1;
 	else if ((key == UPKEY || key == 13))
-	{
-		if (worldMap[(int)(dt->pos_dir.posX + dt->pos_dir.dirX * moveSpeed)][(int)dt->pos_dir.posY] == 0)
-			dt->pos_dir.posX += dt->pos_dir.dirX * moveSpeed;
-		if (worldMap[(int)dt->pos_dir.posX][(int)(dt->pos_dir.posY + dt->pos_dir.dirY * moveSpeed)] == 0)
-			dt->pos_dir.posY += dt->pos_dir.dirY * moveSpeed;
-	}
+		dt->move.mfor = 1;
+	else if (key == 2)
+		dt->move.mright = 1;
+	else if (key == 0)
+		dt->move.mleft = 1;
 	else if (key == 53)
 		ft_close(0, NULL);
-	ft_update_img(dt);
 	return (0);
+}
+
+int	ft_release_key(int key, void *param)
+{
+	t_data	*dt;
+	
+	dt = (t_data *)param;
+	if (key == RIGHTKEY)
+		dt->move.rright = 0;
+	else if (key == LEFTKEY)
+		dt->move.rleft = 0;
+	else if ((key == DOWNKEY || key == 1))
+		dt->move.mback = 0;
+	else if ((key == UPKEY || key == 13))
+		dt->move.mfor = 0;
+	else if (key == 2)
+		dt->move.mright = 0;
+	else if (key == 0)
+		dt->move.mleft = 0;
+	return (0);
+}
+
+void	ft_init_move(t_data *dt)
+{
+	dt->move.mfor = 0;
+	dt->move.mback = 0;
+	dt->move.mright = 0;
+	dt->move.mleft = 0;
+	dt->move.rright = 0;
+	dt->move.rleft = 0;
 }
 
 int	main(void)
@@ -92,6 +100,7 @@ int	main(void)
 	dt.mlx = mlx_init();
 	dt.w = screenWidth;
 	dt.h = screenHeight;
+	ft_init_move(&dt);
 	dt.pos_dir.posX = 22;
 	dt.pos_dir.posY = 16;  //x and y start position
 	dt.pos_dir.dirX = -1;
@@ -102,9 +111,9 @@ int	main(void)
 	//double oldTime = 0; //time of previous frame
 	ft_read_textures(&dt);
 	dt.mlx_w = mlx_new_window(dt.mlx, screenWidth, screenHeight, "Raycaster");
-	ft_update_img(&dt);
-	
-	mlx_key_hook(dt.mlx_w, *ft_input, &dt);
+	mlx_hook(dt.mlx_w, 2, (1L<<0), *ft_press_key, &dt);
+	mlx_hook(dt.mlx_w, 3, (1L<<1), *ft_release_key, &dt);
+	mlx_loop_hook(dt.mlx, &ft_update_img, &dt);
 	mlx_hook(dt.mlx_w, 17, 0, ft_close, NULL);
 	mlx_loop(dt.mlx);
 	return (0);

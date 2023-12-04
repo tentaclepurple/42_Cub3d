@@ -6,7 +6,7 @@
 /*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:54:08 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/02 11:47:08 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/02 16:32:00 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,16 @@ typedef struct s_img
 	int		y;
 } t_img;
 
+typedef struct s_move
+{
+	int	mfor;
+	int	mback;
+	int	mright;
+	int	mleft;
+	int	rright;
+	int	rleft;
+}	t_move;
+
 typedef struct	s_data {
 	void	*mlx;
 	void	*mlx_w;
@@ -69,6 +79,7 @@ typedef struct	s_data {
 	int	**textures;
 	//CAMBIO
 	t_img	text[4];
+	t_move	move;
 }				t_data;
 
 
@@ -82,7 +93,8 @@ typedef struct	s_draw {
 	int		lineHeight;
 }				t_draw;
 //ray_calc
-void	ft_update_img(t_data *dt);
+//CAMBIO
+int	ft_update_img(void *param);
 
 //pixel_put
 int	ft_close(int key, void *param);
@@ -94,6 +106,15 @@ int		**ft_gen_texture(void);
 void	ft_free_textures(int **textures);
 //CAMBIO
 void ft_read_textures(t_data *dt);
+
+//NEW move
+void	ft_rotate_right(t_data *dt, double rotSpeed);
+void	ft_rotate_left(t_data *dt, double rotSpeed);
+void	ft_move_forward(t_data *dt, double moveSpeed);
+void	ft_move_backward(t_data *dt, double moveSpeed);
+void	ft_move_right(t_data *dt, double moveSpeed);
+void	ft_move_left(t_data *dt, double moveSpeed);
+
 
 #define screenWidth 640
 #define screenHeight 640
@@ -109,7 +130,8 @@ void ft_read_textures(t_data *dt);
 //MAC
 #define UPKEY 126
 #define DOWNKEY 125
-#define RIGTHKEY 124
+//CAMBIO
+#define RIGHTKEY 124
 #define LEFTKEY 123
 
 extern int worldMap[mapWidth][mapHeight];

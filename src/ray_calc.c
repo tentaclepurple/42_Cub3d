@@ -6,7 +6,7 @@
 /*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/02 12:10:17 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/02 17:15:35 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,35 @@ void	ft_get_draw_info(t_data dt, t_ray ray, t_draw	*draw)
 		draw->texX = texWidth - draw->texX - 1;
 }
 
-void	ft_update_img(t_data *dt)
+int	ft_do_move(t_data *dt)
+{
+	double	moveSpeed = 0.05;
+	double	rotSpeed = 0.05;
+	
+	if (dt->move.rright)
+		ft_rotate_right(dt, rotSpeed);
+	if (dt->move.rleft)
+		ft_rotate_left(dt, rotSpeed);
+	if (dt->move.mback)
+		ft_move_backward(dt, moveSpeed);
+	if (dt->move.mfor)
+		ft_move_forward(dt, moveSpeed);
+	if (dt->move.mright)
+		ft_move_right(dt, moveSpeed);
+	if (dt->move.mleft)
+		ft_move_left(dt, moveSpeed);
+	return (0);
+}
+
+int	ft_update_img(void *param)
 {
 	t_ray	ray;
 	t_draw	draw;
 	int		x;
+	t_data	*dt;
 	
+	dt = (t_data *)param;
+	ft_do_move(dt);
 	//Start a new MAIN image
 	dt->img = mlx_new_image(dt->mlx, screenWidth, screenHeight);
 	dt->addr = mlx_get_data_addr(dt->img, &dt->bits_per_pixel, &dt->line_length,
@@ -150,4 +173,5 @@ void	ft_update_img(t_data *dt)
 	}
 	mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->img, 0, 0);
 	mlx_destroy_image(dt->mlx,dt->img);
+	return (0);
 }

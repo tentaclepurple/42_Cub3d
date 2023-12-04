@@ -6,7 +6,7 @@
 /*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:33 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/02 12:22:50 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/02 17:32:50 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ void	my_mlx_line_put(t_data *data, int x, t_draw draw)
     
 	// How much to increase the texture coordinate per screen pixel
 	step = 1.0 * texHeight / draw.lineHeight;
-	texPos = 0;
+	texPos = (draw.drawStart - data->h / 2 + draw.lineHeight / 2) * step;
 	//for(int y = 0; y<screenHeight; y++)
 	y = 0;
 	while (y < screenHeight)
 	{
 		// Select color deppending it is a pixel of floor, wall or celling
 		if (y < draw.drawStart)
-			color = 0xffffff;
+			color = 0x696969;
 		else if (y >= draw.drawEnd)
-			color = 0x00ff00;
+			color = 0xc0c0c0;
 		else
 		{
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
