@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:54:08 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/04 17:45:12 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:35:35 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,16 @@ typedef struct s_img
 	int		y;
 } t_img;
 
+typedef struct s_move
+{
+	int	mfor;
+	int	mback;
+	int	mright;
+	int	mleft;
+	int	rright;
+	int	rleft;
+}	t_move;
+
 typedef struct	s_data {
 	void	*mlx;
 	void	*mlx_w;
@@ -67,8 +77,25 @@ typedef struct	s_data {
 	int		w;
 	int		h;
 	int	**textures;
-	t_img	text;
+	//CAMBIO
+	t_img	text[4];
+	t_move	move;
 }				t_data;
+
+/*typedef struct	s_data {
+	void	*mlx;
+	void	*mlx_w;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	t_pos_dir	pos_dir;
+	int		w;
+	int		h;
+	int	**textures;
+	t_img	text;
+}				t_data;*/
 
 
 typedef struct	s_draw {

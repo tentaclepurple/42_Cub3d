@@ -1,13 +1,13 @@
 
-NO textures/texture1.xpm
+NO textures/NO.xpm
 
-SO              textures/texture2.xpm
-WE       textures/texture3.xpm
+SO              textures/SO.xpm
+WE       textures/WE.xpm
 
 F 220,3,   111         
 
 
-EA textures/texture4.xpm
+EA textures/EA.xpm
 
 C 22, 22, 111
 

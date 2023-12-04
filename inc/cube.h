@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/02 13:40:33 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:46:48 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,24 @@
 
 # include "../libraries/libft/libft.h"
 # include "../libraries/minilib/minilibx_opengl_20191021/mlx.h"
+
+# define screenWidth 640
+# define screenHeight 640
+# define mapWidth 24
+# define mapHeight 24
+# define texWidth 32
+# define texHeight 32
+//LINUX
+/* #define UPKEY 65362
+#define DOWNKEY 65364
+#define RIGTHKEY 65363
+#define LEFTKEY 65361 */
+//MAC
+# define UPKEY 126
+# define DOWNKEY 125
+# define RIGHTKEY 124
+# define LEFTKEY 123
+
 
 typedef struct	s_pos_dir {
 	double	posX;
@@ -74,20 +92,51 @@ typedef struct s_img
 	int		y;
 } 				t_img;
 
-typedef struct	s_data {
+
+
+/*typedef struct	s_data {
 	void	*mlx;
 	void	*mlx_w;
-	/*void	*img;
+	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
-	int		endian;*/
+	int		endian;
 	t_img		img_pp;
 	t_pos_dir	pos_dir;
 	int			w;
 	int			h;
 	t_img		text;
 	t_cube		info;
+}				t_data;*/
+
+typedef struct s_move
+{
+	int	mfor;
+	int	mback;
+	int	mright;
+	int	mleft;
+	int	rright;
+	int	rleft;
+}	t_move;
+
+typedef struct	s_data {
+	void	*mlx;
+	void	*mlx_w;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	t_pos_dir	pos_dir;
+	int		w;
+	int		h;
+	int	**textures;
+	t_cube		info;
+	t_img		img_pp;
+	//CAMBIO
+	t_img	text[4];
+	t_move	move;
 }				t_data;
 
 typedef struct	s_draw {
@@ -96,7 +145,17 @@ typedef struct	s_draw {
 	int		texNum;
 	int		texX;
 	double	wallX;
+	//CAMBIO
+	int		lineHeight;
 }				t_draw;
+
+/*typedef struct	s_draw {
+	int		drawStart;
+	int		drawEnd;
+	int		texNum;
+	int		texX;
+	double	wallX;
+}				t_draw;*/
 
 typedef struct	s_parse
 {
@@ -149,35 +208,33 @@ void	free_exit(char *str, t_cube *cub);
 void	free_exit_mat(char *str, t_cube *cub);
 
 //ray_calc
-void	ft_update_img(t_data *dt);
+int		ft_update_img(void *param);
+//void	ft_update_img(t_data *dt);
 
 //pixel_put
 int		ft_close(int key, void *param);
-void	my_mlx_line_put(t_data *data, int x, t_draw draw, int side, int lineHeight);
+//void	my_mlx_line_put(t_data *data, int x, t_draw draw, int side, int lineHeight);
+void	my_mlx_line_put(t_data *data, int x, t_draw draw);
 
 //texture
 int		**ft_gen_texture(void);
 void	ft_free_textures(int **textures);
-t_img	 ft_read_texture(void *mlx);
+//t_img	 ft_read_texture(void *mlx);
+t_img ft_read_texture(void *mlx, char *name);
 
 //game
 void	init_game(t_cube info);
+void	ft_rotate_right(t_data *dt, double rotSpeed);
+void	ft_rotate_left(t_data *dt, double rotSpeed);
+void	ft_move_forward(t_data *dt, double moveSpeed);
+void	ft_move_backward(t_data *dt, double moveSpeed);
+void	ft_move_left(t_data *dt, double moveSpeed);
+void	ft_move_right(t_data *dt, double moveSpeed);
+void ft_read_textures(t_data *dt);
 
-#define screenWidth 640
-#define screenHeight 640
-#define mapWidth 24
-#define mapHeight 24
-#define texWidth 32
-#define texHeight 32
-//LINUX
-/* #define UPKEY 65362
-#define DOWNKEY 65364
-#define RIGTHKEY 65363
-#define LEFTKEY 65361 */
-//MAC
-#define UPKEY 126
-#define DOWNKEY 125
-#define RIGTHKEY 124
-#define LEFTKEY 123
+
+
+
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/04 17:44:21 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:41:53 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_ray ft_init_ray(t_data dt, int x)
 	return (ray);
 }
 
-void	cd ft_calc_ray(t_ray *ray, int **map)
+void	ft_calc_ray(t_ray *ray, int **map)
 {
 	while(ray->hit == 0)
 	{
@@ -83,7 +83,7 @@ void	cd ft_calc_ray(t_ray *ray, int **map)
 		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
 }
 
-void	ft_get_draw_info(t_data dt, t_ray ray, t_draw	*draw)
+void	ft_get_draw_info(t_data dt, t_ray ray, t_draw *draw)
 {
 	//calculate the length of the column line to put in the image column
 	draw->lineHeight = (int)(dt.h / ray.perpWallDist);
@@ -149,9 +149,9 @@ int	ft_update_img(void *param)
 	dt = (t_data *)param;
 	ft_do_move(dt);
 	//Start a new MAIN image
-	dt->img = mlx_new_image(dt->mlx, screenWidth, screenHeight);
-	dt->addr = mlx_get_data_addr(dt->img, &dt->bits_per_pixel, &dt->line_length,
-								&dt->endian);
+	dt->img_pp.img = mlx_new_image(dt->mlx, screenWidth, screenHeight);
+	dt->img_pp.addr = mlx_get_data_addr(dt->img_pp.img, &dt->img_pp.bits_per_pixel, &dt->img_pp.line_length,
+								&dt->img_pp.endian);
 	/*Starts the loop of:
 		1- Send and calculate distance of a ray
 		2- Calculate in the texture which pixels to represent
@@ -164,14 +164,14 @@ int	ft_update_img(void *param)
 		//Put ray values to initial ones
 		ray = ft_init_ray(*dt, x);
 		//Calculate Ray distances
-		ft_calc_ray(&ray);
+		ft_calc_ray(&ray, dt->info.imap);
 		//Calculate drawing parameters
 		ft_get_draw_info(*dt, ray, &draw);
 		//Include the pixel column into the main image
 		my_mlx_line_put(dt, x, draw);
 		x++;
 	}
-	mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->img, 0, 0);
-	mlx_destroy_image(dt->mlx,dt->img);
+	mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->img_pp.img, 0, 0);
+	mlx_destroy_image(dt->mlx,dt->img_pp.img);
 	return (0);
 }
