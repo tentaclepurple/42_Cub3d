@@ -30,6 +30,7 @@ SRC_FILE = 	pixel_put.c \
 			fillmap.c \
 			parse_aux.c \
 			errors.c \
+			move.c \
 			main.c
 
 SRC      = $(addprefix $(SRC_DIR), $(SRC_FILE))
