@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:56:07 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/02 13:31:37 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:18:51 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	ft_get_elements(t_cube *cub, char *str)
 void	init_cub(t_cube *cub)
 {
 	ft_bzero(cub, sizeof(t_cube));
+	//printf("start_map = %i\n", cub->start_map);
+
 	cub->start_map = 0;
 	cub->no = ft_strdup("");
 	cub->so = ft_strdup("");

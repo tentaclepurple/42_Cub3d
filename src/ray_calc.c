@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/04 20:41:53 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:18:43 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,10 @@ int	ft_update_img(void *param)
 	dt->img_pp.img = mlx_new_image(dt->mlx, screenWidth, screenHeight);
 	dt->img_pp.addr = mlx_get_data_addr(dt->img_pp.img, &dt->img_pp.bits_per_pixel, &dt->img_pp.line_length,
 								&dt->img_pp.endian);
+	printf("line_length: %d\n", dt->img_pp.line_length);
+	printf("bits_per_pixel: %d\n", dt->img_pp.bits_per_pixel);
+	printf("endian: %d\n", dt->img_pp.endian);
+	
 	/*Starts the loop of:
 		1- Send and calculate distance of a ray
 		2- Calculate in the texture which pixels to represent
@@ -165,6 +169,7 @@ int	ft_update_img(void *param)
 		ray = ft_init_ray(*dt, x);
 		//Calculate Ray distances
 		ft_calc_ray(&ray, dt->info.imap);
+		
 		//Calculate drawing parameters
 		ft_get_draw_info(*dt, ray, &draw);
 		//Include the pixel column into the main image

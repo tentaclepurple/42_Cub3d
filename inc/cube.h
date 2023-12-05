@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/04 20:46:48 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:36:54 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ typedef struct	s_cube
 	char		*we;
 	char		*ea;
 	int			map_size[2];
-	int			pl_pos[3];
+	int			pl_pos[2];
+	int			pl_dir[2];
 	int			f;
 	int			c;
 	int			start_map;
@@ -92,24 +93,6 @@ typedef struct s_img
 	int		y;
 } 				t_img;
 
-
-
-/*typedef struct	s_data {
-	void	*mlx;
-	void	*mlx_w;
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	t_img		img_pp;
-	t_pos_dir	pos_dir;
-	int			w;
-	int			h;
-	t_img		text;
-	t_cube		info;
-}				t_data;*/
-
 typedef struct s_move
 {
 	int	mfor;
@@ -121,22 +104,22 @@ typedef struct s_move
 }	t_move;
 
 typedef struct	s_data {
-	void	*mlx;
-	void	*mlx_w;
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	void		*mlx;
+	void		*mlx_w;
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
 	t_pos_dir	pos_dir;
-	int		w;
-	int		h;
-	int	**textures;
+	int			w;
+	int			h;
+	int			**textures;
 	t_cube		info;
 	t_img		img_pp;
 	//CAMBIO
-	t_img	text[4];
-	t_move	move;
+	t_img		text[4];
+	t_move		move;
 }				t_data;
 
 typedef struct	s_draw {
@@ -146,16 +129,8 @@ typedef struct	s_draw {
 	int		texX;
 	double	wallX;
 	//CAMBIO
-	int		lineHeight;
+	int			lineHeight;
 }				t_draw;
-
-/*typedef struct	s_draw {
-	int		drawStart;
-	int		drawEnd;
-	int		texNum;
-	int		texX;
-	double	wallX;
-}				t_draw;*/
 
 typedef struct	s_parse
 {
@@ -168,7 +143,6 @@ typedef struct	s_parse
 
 
 void	ft_print_map(char **map);
-
 
 /*
 	parse
@@ -231,10 +205,5 @@ void	ft_move_backward(t_data *dt, double moveSpeed);
 void	ft_move_left(t_data *dt, double moveSpeed);
 void	ft_move_right(t_data *dt, double moveSpeed);
 void ft_read_textures(t_data *dt);
-
-
-
-
-
 
 #endif

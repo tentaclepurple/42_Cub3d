@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:38:49 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/02 13:32:22 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/05 12:30:29 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ char	*ft_get_cub(t_cube *cub, int fd)
 	count = 0;
 	tmp = ft_strdup("");
 	line = get_next_line(fd);
+	//QUE cojones pasa aqui
+	printf("RRR cube->start_map = %i\n", cub->start_map);
 	while (line)
 	{
 		if (ft_strnstr(line, "11", ft_strlen(line)) && !ft_strchr(line, ',') &&

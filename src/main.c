@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/02 13:37:09 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/05 13:27:38 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ char	*ft_extract_map(t_cube *cub, char *str)
 
 	len = 0;
 	i = cub->start_map;
+
 	while (str[i])
 	{
+		
 		if (str[i] == '\n' && (str[i + 1] == '\0' || str[i + 1] == '\n'))
 			break ;
 		len++;
@@ -42,6 +44,8 @@ char	*ft_extract_map(t_cube *cub, char *str)
 	}
 	if (ft_strlen(str) > i)
 	{
+		printf("len: %zu\n", ft_strlen(str));
+		printf("i = %zu\n", i);
 		free(str);
 		free_exit("Error\nUnexpected elements after map\n", cub);
 	}
@@ -84,6 +88,7 @@ void	ft_checks(t_cube *cub, int fd)
 	str = ft_get_cub(cub, fd);
 	ft_get_elements(cub, str);
 	mapstr = ft_extract_map(cub, str);
+	
 	premap = ft_split(mapstr, '\n');
 	free(mapstr);
 	ft_check_premap(premap, cub);
@@ -119,6 +124,38 @@ void    ft_check_repeat_elems(t_cube *cub)
         free_exit("Error\nWrong number of players\n", cub);
 }
 
+void	ft_get_vector(t_cube *cub, char c)
+{
+	if (c == 'N')
+	{
+		cub->pl_dir[1] = -1;
+		cub->pl_dir[0] = 0;
+		/*cub->pl_planeY = 0;
+		cub->pl_planeX = 0.66;*/
+	}
+	else if (c == 'S')
+	{
+		cub->pl_dir[1] = 1;
+		cub->pl_dir[0] = 0;
+		/*cub->pl_planeY = 0;
+		cub->pl_planeX = -0.66;*/
+	}
+	else if (c == 'E')
+	{
+		cub->pl_dir[1] = 0;
+		cub->pl_dir[0] = 1;
+		/*cub->pl_planeY = 0.66;
+		cub->pl_planeX = 0;*/
+	}
+	else if (c == 'W')
+	{
+		cub->pl_dir[1] = 0;
+		cub->pl_dir[0] = -1;
+		/*cub->pl_planeY = -0.66;
+		cub->pl_planeX = 0;*/
+	}
+}
+
 /*
     gets the starting position of the player and the direction
     if there is no player, exit with error message
@@ -136,11 +173,11 @@ void    ft_get_pos(t_cube *cub)
         {
             if (ft_strchr("NSEW", cub->map[i][j]))
             {
-                cub->pl_pos[0] = i;
-                cub->pl_pos[1] = j;
-                cub->pl_pos[2] = cub->map[i][j];
+                cub->pl_pos[0] = j;
+                cub->pl_pos[1] = i;
+                ft_get_vector(cub, cub->map[i][j]);
                 cub->map[i][j] = '0';
-                return ;
+				return ;
             }
             j++;
         }
@@ -239,7 +276,7 @@ int	main(int argc, char **argv)
 		free_exit("Error\nFile not found\n", &cub);
 	ft_checks(&cub, fd);
     ft_map_values(&cub);
-	init_game(cub);
+	//init_game(cub);
 	free_exit("agur\n", &cub);
 	return (0);
 }
