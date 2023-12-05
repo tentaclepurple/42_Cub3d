@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/05 13:27:38 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:41:56 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,7 +276,7 @@ int	main(int argc, char **argv)
 		free_exit("Error\nFile not found\n", &cub);
 	ft_checks(&cub, fd);
     ft_map_values(&cub);
-	//init_game(cub);
+	init_game(cub);
 	free_exit("agur\n", &cub);
 	return (0);
 }

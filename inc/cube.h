@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/05 13:36:54 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/05 20:04:51 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define screenHeight 640
 # define mapWidth 24
 # define mapHeight 24
-# define texWidth 32
-# define texHeight 32
+# define texWidth 128
+# define texHeight 128
 //LINUX
 /* #define UPKEY 65362
 #define DOWNKEY 65364
@@ -82,17 +82,6 @@ typedef struct	s_cube
 	int			start_map;
 }				t_cube;
 
-typedef struct s_img
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		x;
-	int		y;
-} 				t_img;
-
 typedef struct s_move
 {
 	int	mfor;
@@ -102,6 +91,17 @@ typedef struct s_move
 	int	rright;
 	int	rleft;
 }	t_move;
+
+typedef struct s_img
+{
+	void	*img;
+	int		*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		x;
+	int		y;
+} 				t_img;
 
 typedef struct	s_data {
 	void		*mlx;
@@ -129,8 +129,8 @@ typedef struct	s_draw {
 	int		texX;
 	double	wallX;
 	//CAMBIO
-	int			lineHeight;
-}				t_draw;
+	int		lineHeight;
+}			t_draw;
 
 typedef struct	s_parse
 {
@@ -194,7 +194,8 @@ void	my_mlx_line_put(t_data *data, int x, t_draw draw);
 int		**ft_gen_texture(void);
 void	ft_free_textures(int **textures);
 //t_img	 ft_read_texture(void *mlx);
-t_img ft_read_texture(void *mlx, char *name);
+t_img 	ft_read_texture(void *mlx, char *name);
+void 	ft_read_textures(t_data *dt);
 
 //game
 void	init_game(t_cube info);
@@ -204,6 +205,6 @@ void	ft_move_forward(t_data *dt, double moveSpeed);
 void	ft_move_backward(t_data *dt, double moveSpeed);
 void	ft_move_left(t_data *dt, double moveSpeed);
 void	ft_move_right(t_data *dt, double moveSpeed);
-void ft_read_textures(t_data *dt);
+
 
 #endif

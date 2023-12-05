@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:25:04 by josu              #+#    #+#             */
-/*   Updated: 2023/12/05 13:03:24 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/05 20:09:33 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,8 @@ t_img ft_read_texture(void *mlx, char *name)
 	t_img image;
 
 	image.img = mlx_xpm_file_to_image(mlx, name, &image.x, &image.y);
-	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel, &image.line_length, &image.endian);
+	image.addr = (int *) mlx_get_data_addr(image.img, &image.bits_per_pixel, &image.line_length, &image.endian);
 	image.line_length = image.line_length / 4;
-	printf("line_length: %d\n", image.line_length);
-	printf("bits_per_pixel: %d\n", image.bits_per_pixel);
-	printf("endian: %d\n", image.endian);
 	return (image);
 }
 
