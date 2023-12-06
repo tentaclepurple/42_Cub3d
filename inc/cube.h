@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/05 20:04:51 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/06 20:12:16 by josu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@
 # define texWidth 128
 # define texHeight 128
 //LINUX
-/* #define UPKEY 65362
+#define UPKEY 65362
 #define DOWNKEY 65364
-#define RIGTHKEY 65363
-#define LEFTKEY 65361 */
+#define RIGHTKEY 65363
+#define LEFTKEY 65361
 //MAC
-# define UPKEY 126
+/*# define UPKEY 126
 # define DOWNKEY 125
 # define RIGHTKEY 124
-# define LEFTKEY 123
+# define LEFTKEY 123*/
 
 
 typedef struct	s_pos_dir {

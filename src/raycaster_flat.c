@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_flat.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/05 16:30:13 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/06 20:49:25 by josu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ void	init_game(t_cube info)
 	
 
 		
-	dt.pos_dir.posX = (double)info.pl_pos[1];
-	dt.pos_dir.posY = (double)info.pl_pos[0];  //x and y start position
+	dt.pos_dir.posX = (double)info.pl_pos[1] + 0.5;
+	dt.pos_dir.posY = (double)info.pl_pos[0] + 0.5;  //x and y start position
 	
 	dt.pos_dir.dirX = (double)info.pl_dir[1];
 	dt.pos_dir.dirY = (double)info.pl_dir[0]; //initial direction vector
-	dt.pos_dir.planeX = 0;
-	dt.pos_dir.planeY = 0.66; //the 2d raycaster version of camera plane
+	dt.pos_dir.planeX = dt.pos_dir.dirY * (0.66);
+	dt.pos_dir.planeY = dt.pos_dir.dirX * (-0.66); //the 2d raycaster version of camera plane
 	//double time = 0; //time of current frame
 	//double oldTime = 0; //time of previous frame
 	ft_read_textures(&dt);

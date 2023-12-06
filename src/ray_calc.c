@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/05 19:30:18 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/06 20:16:56 by josu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ void	ft_get_draw_info(t_data dt, t_ray ray, t_draw *draw)
 
 int	ft_do_move(t_data *dt)
 {
-	double	moveSpeed = 0.05;
-	double	rotSpeed = 0.05;
+	double	moveSpeed = 0.01;
+	double	rotSpeed = 0.01;
 	
 	if (dt->move.rright)
 		ft_rotate_right(dt, rotSpeed);
@@ -150,7 +150,7 @@ int	ft_update_img(void *param)
 	ft_do_move(dt);
 	//Start a new MAIN image
 	dt->img_pp.img = mlx_new_image(dt->mlx, screenWidth, screenHeight);
-	dt->img_pp.addr = mlx_get_data_addr(dt->img_pp.img, &dt->img_pp.bits_per_pixel, &dt->img_pp.line_length,
+	dt->img_pp.addr = (int *) mlx_get_data_addr(dt->img_pp.img, &dt->img_pp.bits_per_pixel, &dt->img_pp.line_length,
 								&dt->img_pp.endian);
 	/*printf("line_length: %d\n", dt->img_pp.line_length);
 	printf("bits_per_pixel: %d\n", dt->img_pp.bits_per_pixel);

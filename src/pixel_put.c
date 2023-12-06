@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_put.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:33 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/05 18:04:44 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/06 20:16:01 by josu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	char	*dst;
+	int	*dst;
 
-	dst = data->img_pp.addr + (y * data->img_pp.line_length + x * (data->img_pp.bits_per_pixel / 8));
+	dst = data->img_pp.addr + (y * data->img_pp.line_length / (data->img_pp.bits_per_pixel / 8) + x);
 	*(unsigned int*)dst = color;
 }
 
@@ -38,9 +38,9 @@ void	my_mlx_line_put(t_data *data, int x, t_draw draw)
 	{
 		// Select color deppending it is a pixel of floor, wall or celling
 		if (y < draw.drawStart)
-			color = 0x696969;
+			color = data->info.c;
 		else if (y >= draw.drawEnd)
-			color = 0xc0c0c0;
+			color = data->info.f;
 		else
 		{
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
