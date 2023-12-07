@@ -31,6 +31,7 @@ SRC_FILE = 	pixel_put.c \
 			parse_aux.c \
 			errors.c \
 			move.c \
+			checks.c \
 			main.c
 
 SRC      = $(addprefix $(SRC_DIR), $(SRC_FILE))
@@ -48,6 +49,8 @@ $(shell mkdir -p $(OBJ_DIR))
 # Variable to control if the library has been built
 LIBFT_BUILT    = no
 MINILIBX_BUILT = no
+
+.SILENT:
 
 all: $(NAME)
 

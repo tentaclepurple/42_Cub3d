@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/06 20:12:16 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/07 13:25:38 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,35 @@
 # include "../libraries/libft/libft.h"
 # include "../libraries/minilib/minilibx_opengl_20191021/mlx.h"
 
-# define screenWidth 640
-# define screenHeight 640
-# define mapWidth 24
-# define mapHeight 24
-# define texWidth 128
-# define texHeight 128
+# define SCREENWIDTH 640
+# define SCREENHEIGHT 640
+# define MAPWIDTH 24
+# define MAPHEIGHT 24
+# define TEXWIDTH 128
+# define TEXHEIGHT 128
+
+# define MOV_SPEED 0.05
+# define ROT_SPEED 0.03
+
 //LINUX
-#define UPKEY 65362
+/*#define UPKEY 65362
 #define DOWNKEY 65364
 #define RIGHTKEY 65363
-#define LEFTKEY 65361
+#define LEFTKEY 65361*/
 //MAC
-/*# define UPKEY 126
+# define UPKEY 126
 # define DOWNKEY 125
 # define RIGHTKEY 124
-# define LEFTKEY 123*/
+# define LEFTKEY 123
 
-
-typedef struct	s_pos_dir {
+typedef struct s_pos_dir {
 	double	posX;
 	double	posY;
 	double	dirX;
 	double	dirY;
 	double	planeX;
 	double	planeY;
-}				t_pos_dir;
+}			t_pos_dir;
 
 typedef struct	s_ray {
 	double	cameraX;
@@ -128,19 +131,17 @@ typedef struct	s_draw {
 	int		texNum;
 	int		texX;
 	double	wallX;
-	//CAMBIO
 	int		lineHeight;
 }			t_draw;
 
 typedef struct	s_parse
 {
-	int i;
-	int lastelem;
-	int firstmap;
-	int counttx;
-	int countfc;
-}				t_parse;
-
+	int	i;
+	int	lastelem;
+	int	firstmap;
+	int	counttx;
+	int	countfc;
+}		t_parse;
 
 void	ft_print_map(char **map);
 
@@ -149,21 +150,19 @@ void	ft_print_map(char **map);
 */
 char	*ft_get_cub(t_cube *cub, int fd);
 void	ft_checks(t_cube *cub, int fd);
-
-/* 
-	fill map
-*/
 void	ft_fill_map(t_cube *cub, char **premap);
 void	ft_check_map_perimeter(t_cube *cub);
-
-/* 
-	elems
- */
 void	ft_search_elems_aux(t_cube *cub, t_parse *p, char **spl);
 int		ft_save_color(char **spl, t_parse *p, t_cube *cub, int count);
 void	ft_save_path(t_cube *cub, char *path, t_parse *p, char **elem);
 void	ft_get_elements(t_cube *cub, char *str);
 void	ft_search_elems(t_cube *cub, char **spl, t_parse *p);
+void	ft_get_vector(t_cube *cub, char c);
+void	ft_get_pos(t_cube *cub);
+void	ft_get_map_size(t_cube *cub);
+void	ft_map_char_2_int(t_cube *cub);
+void	ft_map_values(t_cube *cub);
+void	ft_check_repeat_elems(t_cube *cub);
 
 /* 
 	utils
@@ -183,19 +182,16 @@ void	free_exit_mat(char *str, t_cube *cub);
 
 //ray_calc
 int		ft_update_img(void *param);
-//void	ft_update_img(t_data *dt);
 
 //pixel_put
 int		ft_close(int key, void *param);
-//void	my_mlx_line_put(t_data *data, int x, t_draw draw, int side, int lineHeight);
 void	my_mlx_line_put(t_data *data, int x, t_draw draw);
 
 //texture
 int		**ft_gen_texture(void);
 void	ft_free_textures(int **textures);
-//t_img	 ft_read_texture(void *mlx);
-t_img 	ft_read_texture(void *mlx, char *name);
-void 	ft_read_textures(t_data *dt);
+t_img	ft_read_texture(void *mlx, char *name);
+void	ft_read_textures(t_data *dt);
 
 //game
 void	init_game(t_cube info);
@@ -205,6 +201,5 @@ void	ft_move_forward(t_data *dt, double moveSpeed);
 void	ft_move_backward(t_data *dt, double moveSpeed);
 void	ft_move_left(t_data *dt, double moveSpeed);
 void	ft_move_right(t_data *dt, double moveSpeed);
-
 
 #endif

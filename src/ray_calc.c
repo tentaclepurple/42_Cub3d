@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/06 20:16:56 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/07 13:00:48 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_ray ft_init_ray(t_data dt, int x)
 	t_ray	ray;
 
 	ray.hit = 0;
-	ray.cameraX = 2 * x / (double)dt.w - 1; //x-coordinate in camera space
+	ray.cameraX = 2 * x / (double)dt.w - 1;
 	ray.rayDirX = dt.pos_dir.dirX + dt.pos_dir.planeX * ray.cameraX;
 	ray.rayDirY = dt.pos_dir.dirY + dt.pos_dir.planeY * ray.cameraX;
 	ray.mapX = (int)dt.pos_dir.posX;
@@ -85,17 +85,13 @@ void	ft_calc_ray(t_ray *ray, int **map)
 
 void	ft_get_draw_info(t_data dt, t_ray ray, t_draw *draw)
 {
-	//calculate the length of the column line to put in the image column
 	draw->lineHeight = (int)(dt.h / ray.perpWallDist);
-	//With a screen oh height h, the starting pixel to represent the wall
 	draw->drawStart = -draw->lineHeight / 2 + dt.h / 2;
 	if(draw->drawStart < 0)
 		draw->drawStart = 0;
-	//With a screen oh height h, the final pixel to represent the wall
 	draw->drawEnd = draw->lineHeight / 2 + dt.h / 2;
 	if(draw->drawEnd >= dt.h)
 		draw->drawEnd = dt.h - 1;
-	//texturing chose deppending on direction of side hit
 	if(ray.side == 0 && ray.rayDirX > 0)
 		draw->texNum = 1;
 	else if(ray.side == 0 && ray.rayDirX < 0)
@@ -104,25 +100,22 @@ void	ft_get_draw_info(t_data dt, t_ray ray, t_draw *draw)
 		draw->texNum = 2;
 	else if(ray.side == 1 && ray.rayDirY < 0)
 		draw->texNum = 3;
-	//Calculate distance from wall start where ray hits (prop to texture width)
 	if (ray.side == 0)
 		draw->wallX = dt.pos_dir.posY + ray.perpWallDist * ray.rayDirY;
 	else
 		draw->wallX = dt.pos_dir.posX + ray.perpWallDist * ray.rayDirX;
-	//Get decimals of the value -> The percentage of the texture witdh we need to represent
 	draw->wallX -= floor((draw->wallX));
-	//Gety x coordinate on the texture
-	draw->texX = (int)(draw->wallX * (double)texWidth);
+	draw->texX = (int)(draw->wallX * (double)TEXWIDTH);
 	if(ray.side == 0 && ray.rayDirX > 0)
-		draw->texX = texWidth - draw->texX - 1;
+		draw->texX = TEXWIDTH - draw->texX - 1;
 	if(ray.side == 1 && ray.rayDirY < 0)
-		draw->texX = texWidth - draw->texX - 1;
+		draw->texX = TEXWIDTH - draw->texX - 1;
 }
 
 int	ft_do_move(t_data *dt)
 {
-	double	moveSpeed = 0.01;
-	double	rotSpeed = 0.01;
+	double	moveSpeed = MOV_SPEED;
+	double	rotSpeed = ROT_SPEED;
 	
 	if (dt->move.rright)
 		ft_rotate_right(dt, rotSpeed);
@@ -145,34 +138,18 @@ int	ft_update_img(void *param)
 	t_draw	draw;
 	int		x;
 	t_data	*dt;
-	
+
 	dt = (t_data *)param;
 	ft_do_move(dt);
-	//Start a new MAIN image
-	dt->img_pp.img = mlx_new_image(dt->mlx, screenWidth, screenHeight);
-	dt->img_pp.addr = (int *) mlx_get_data_addr(dt->img_pp.img, &dt->img_pp.bits_per_pixel, &dt->img_pp.line_length,
-								&dt->img_pp.endian);
-	/*printf("line_length: %d\n", dt->img_pp.line_length);
-	printf("bits_per_pixel: %d\n", dt->img_pp.bits_per_pixel);
-	printf("endian: %d\n", dt->img_pp.endian);*/
-	
-	/*Starts the loop of:
-		1- Send and calculate distance of a ray
-		2- Calculate in the texture which pixels to represent
-		3- Include pixel column into the main image
-		4- Loop
-	*/	
+	dt->img_pp.img = mlx_new_image(dt->mlx, SCREENWIDTH, SCREENHEIGHT);
+	dt->img_pp.addr = (int *) mlx_get_data_addr(dt->img_pp.img, 
+		&dt->img_pp.bits_per_pixel, &dt->img_pp.line_length, &dt->img_pp.endian);
 	x = 0;
 	while (x < dt->w)
 	{
-		//Put ray values to initial ones
 		ray = ft_init_ray(*dt, x);
-		//Calculate Ray distances
 		ft_calc_ray(&ray, dt->info.imap);
-		
-		//Calculate drawing parameters
 		ft_get_draw_info(*dt, ray, &draw);
-		//Include the pixel column into the main image
 		my_mlx_line_put(dt, x, draw);
 		x++;
 	}

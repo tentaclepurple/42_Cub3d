@@ -6,24 +6,11 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/05 17:41:56 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:54:06 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cube.h"
-
-void	ft_print_map(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		printf("[%i]%s\n", i, map[i]);
-		i++;
-	}
-	//delete this
-}
 
 //get just the map (str) from str. check if there are any elements after map.
 char	*ft_extract_map(t_cube *cub, char *str)
@@ -122,142 +109,6 @@ void    ft_check_repeat_elems(t_cube *cub)
     }
     if (count != 1)
         free_exit("Error\nWrong number of players\n", cub);
-}
-
-void	ft_get_vector(t_cube *cub, char c)
-{
-	if (c == 'N')
-	{
-		cub->pl_dir[1] = -1;
-		cub->pl_dir[0] = 0;
-		/*cub->pl_planeY = 0;
-		cub->pl_planeX = 0.66;*/
-	}
-	else if (c == 'S')
-	{
-		cub->pl_dir[1] = 1;
-		cub->pl_dir[0] = 0;
-		/*cub->pl_planeY = 0;
-		cub->pl_planeX = -0.66;*/
-	}
-	else if (c == 'E')
-	{
-		cub->pl_dir[1] = 0;
-		cub->pl_dir[0] = 1;
-		/*cub->pl_planeY = 0.66;
-		cub->pl_planeX = 0;*/
-	}
-	else if (c == 'W')
-	{
-		cub->pl_dir[1] = 0;
-		cub->pl_dir[0] = -1;
-		/*cub->pl_planeY = -0.66;
-		cub->pl_planeX = 0;*/
-	}
-}
-
-/*
-    gets the starting position of the player and the direction
-    if there is no player, exit with error message
- */
-void    ft_get_pos(t_cube *cub)
-{
-    int i;
-    int j;
-    i = 0;
-    j = 0;
-    while (cub->map[i])
-    {
-        j = 0;
-        while (cub->map[i][j])
-        {
-            if (ft_strchr("NSEW", cub->map[i][j]))
-            {
-                cub->pl_pos[0] = j;
-                cub->pl_pos[1] = i;
-                ft_get_vector(cub, cub->map[i][j]);
-                cub->map[i][j] = '0';
-				return ;
-            }
-            j++;
-        }
-        i++;
-    }
-    free_exit("Error\nNo player found\n", cub);
-}
-
-/*
-    gets the size of the map
- */
-void    ft_get_map_size(t_cube *cub)
-{
-    int i;
-    int j;
-    i = 0;
-    j = 0;
-    while (cub->map[i])
-    {
-        j = 0;
-        while (cub->map[i][j])
-        {
-            j++;
-        }
-        i++;
-    }
-    cub->map_size[0] = i;
-    cub->map_size[1] = j;
-}
-
-/*
-	converts char map to int map
- */
-void	ft_map_char_2_int(t_cube *cub)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	cub->imap = malloc(sizeof(int *) * cub->map_size[0]);
-	while (i < cub->map_size[0])
-	{
-		cub->imap[i] = malloc(sizeof(int) * cub->map_size[1]);
-		j = 0;
-		while (j < cub->map_size[1])
-		{
-			if (cub->map[i][j] == '0')
-				cub->imap[i][j] = 0;
-			else
-				cub->imap[i][j] = 1;
-			j++;
-		}
-		i++;
-	}
-}
-
-/*
-    check if there are any repeated elements in the map (N, S, E, W)
-    gets the starting position of the player and the direction
- */
-void    ft_map_values(t_cube *cub)
-{
-    ft_check_repeat_elems(cub);
-    ft_get_pos(cub);
-    ft_get_map_size(cub);
-	ft_map_char_2_int(cub);
-	//print imap
-	/*int i = 0;
-	int j = 0;
-	while (i < cub->map_size[0])
-	{
-		j = 0;
-		while (j < cub->map_size[1])
-		{
-			printf("%i", cub->imap[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}*/
 }
 
 /* main function */
