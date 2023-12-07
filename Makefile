@@ -2,7 +2,7 @@
 USER_NAME = Josu&Iban
 # Compiler and flags
 CC        = gcc
-CFLAGS    = -Wall -Wextra -Werror -I $(INC_DIR) -I $(MINILIBX_DIR) -I $(LIBFT_DIR)/include -O3 -g3 #-fsanitize=address
+CFLAGS    = -Wall -Wextra -Werror -I $(INC_DIR) -I $(MINILIBX_DIR) -I $(LIBFT_DIR)/include -O3 -g3 -fsanitize=address
 # Platform to run project (Linux and Mac)
 PLATFORM  := $(shell uname)
 # Directories
@@ -22,6 +22,7 @@ endif
 # Source files
 SRC_FILE = 	pixel_put.c \
 			ray_calc.c \
+			ray_calc_aux.c \
 			raycaster_flat.c \
 			texture.c \
 			custom_split.c \
@@ -31,6 +32,7 @@ SRC_FILE = 	pixel_put.c \
 			parse_aux.c \
 			errors.c \
 			move.c \
+			move_aux.c \
 			checks.c \
 			main.c
 

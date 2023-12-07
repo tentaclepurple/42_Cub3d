@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:54:31 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/02 13:34:09 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:19:37 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //check if path is xpm and opens it to check if it is a valid path
 void	ft_save_path(t_cube *cub, char *path, t_parse *p, char **elem)
 {
-	int fd;
+	int	fd;
 
 	fd = open(path, O_RDONLY);
 	if (ft_strncmp(path + ft_strlen(path) - 4, ".xpm", 4) || fd == -1)
@@ -58,12 +58,12 @@ int	ft_save_color(char **spl, t_parse *p, t_cube *cub, int count)
 void	ft_search_elems_aux(t_cube *cub, t_parse *p, char **spl)
 {
 	if (!ft_strncmp("1", spl[p->i], 1))
-		{
-			if (!ft_strncmp("1", spl[0], 1))
-				free_exit("Error\nUnexpected map position\n", cub);
-			if (p->firstmap == 0)
-				p->firstmap = p->i;
-		}
+	{
+		if (!ft_strncmp("1", spl[0], 1))
+			free_exit("Error\nUnexpected map position\n", cub);
+		if (p->firstmap == 0)
+			p->firstmap = p->i;
+	}
 	else if (spl[p->i + 1] && !ft_strncmp("NO", spl[p->i], 2))
 		ft_save_path(cub, spl[p->i + 1], p, &(cub->no));
 	else if (spl[p->i + 1] && !ft_strncmp("SO", spl[p->i], 2))
@@ -79,4 +79,3 @@ void	ft_search_elems_aux(t_cube *cub, t_parse *p, char **spl)
 	else
 		free_exit("Error\nUnexpected element/character\n", cub);
 }
-

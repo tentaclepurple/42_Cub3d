@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:38:49 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 12:42:04 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:24:09 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,18 @@ int	my_atoi(const char *str)
 		str++;
 	while (*str)
 	{
-        if (*str >= '0' && *str <= '9')
-            res = res * 10 + (*str - '0');
-        else
-            return -1;
-        str++;
-    }
+		if (*str >= '0' && *str <= '9')
+			res = res * 10 + (*str - '0');
+		else
+			return (-1);
+		str++;
+	}
 	return (res * sign);
 }
 
 int	transf_rgb(int r, int g, int b)
 {
-	return (r << 16 | g << 8 | b);
+	return (0 << 24 | r << 16 | g << 8 | b);
 }
 
 /* 
@@ -86,11 +86,11 @@ char	*ft_get_cub(t_cube *cub, int fd)
 	count = 0;
 	tmp = ft_strdup("");
 	line = get_next_line(fd);
-	//QUE cojones pasa aqui
 	while (line)
 	{
-		if (ft_strnstr(line, "11", ft_strlen(line)) && !ft_strchr(line, ',') &&
-				!ft_strnstr(line, ".xpm", ft_strlen(line)) && cub->start_map == 0)
+		if (ft_strnstr(line, "11", ft_strlen(line)) && !ft_strchr(line, ',')
+			&& !ft_strnstr(line, ".xpm", ft_strlen(line))
+			&& cub->start_map == 0)
 			cub->start_map = count;
 		count += ft_strlen(line);
 		aux = ft_strjoin(tmp, line);
@@ -100,5 +100,5 @@ char	*ft_get_cub(t_cube *cub, int fd)
 		free(aux);
 		line = get_next_line(fd);
 	}
-	return (tmp);	
+	return (tmp);
 }

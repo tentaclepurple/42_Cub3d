@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 12:54:06 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:33:04 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ char	*ft_extract_map(t_cube *cub, char *str)
 
 	len = 0;
 	i = cub->start_map;
-
 	while (str[i])
 	{
-		
 		if (str[i] == '\n' && (str[i + 1] == '\0' || str[i + 1] == '\n'))
 			break ;
 		len++;
@@ -75,46 +73,44 @@ void	ft_checks(t_cube *cub, int fd)
 	str = ft_get_cub(cub, fd);
 	ft_get_elements(cub, str);
 	mapstr = ft_extract_map(cub, str);
-	
 	premap = ft_split(mapstr, '\n');
 	free(mapstr);
 	ft_check_premap(premap, cub);
 	ft_fill_map(cub, premap);
-	//ft_print_map(cub->map);	
 	free(str);
-	
 }
 
 /*
     check if there are any repeated elements in the map (N, S, E, W)
 */
-void    ft_check_repeat_elems(t_cube *cub)
+void	ft_check_repeat_elems(t_cube *cub)
 {
-    int i;
-    int j;
-    int count;
-    i = 0;
-    j = 0;
-    count = 0;
-    while (cub->map[i])
-    {
-        j = 0;
-        while (cub->map[i][j])
-        {
-            if (ft_strchr("NSEW", cub->map[i][j]))
-                count++;
-            j++;
-        }
-        i++;
-    }
-    if (count != 1)
-        free_exit("Error\nWrong number of players\n", cub);
+	int	i;
+	int	j;
+	int	count;
+
+	i = 0;
+	j = 0;
+	count = 0;
+	while (cub->map[i])
+	{
+		j = 0;
+		while (cub->map[i][j])
+		{
+			if (ft_strchr("NSEW", cub->map[i][j]))
+				count++;
+			j++;
+		}
+		i++;
+	}
+	if (count != 1)
+		free_exit("Error\nWrong number of players\n", cub);
 }
 
 /* main function */
 int	main(int argc, char **argv)
 {
-	int	fd;
+	int		fd;
 	t_cube	cub;
 
 	init_cub(&cub);
@@ -126,8 +122,28 @@ int	main(int argc, char **argv)
 	if (fd == -1)
 		free_exit("Error\nFile not found\n", &cub);
 	ft_checks(&cub, fd);
-    ft_map_values(&cub);
+	ft_map_values(&cub);
 	init_game(cub);
 	free_exit("agur\n", &cub);
 	return (0);
 }
+
+/*int	main(int argc, char **argv)
+{
+	int		fd;
+	t_cube	cub;
+
+	init_cub(&cub);
+	if (argc != 2)
+		free_exit("Error\nWrong number of arguments\n", &cub);
+	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 4))
+		free_exit("Error\nWrong file extension\n", &cub);
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		free_exit("Error\nFile not found\n", &cub);
+	ft_checks(&cub, fd);
+	ft_map_values(&cub);
+	init_game(&cub);
+	free_exit("agur\n", &cub);
+	return (0);
+}*/

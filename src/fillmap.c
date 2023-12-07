@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:37:25 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/25 09:52:55 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/07 18:08:38 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ static void	ft_check_map_perimeter_aux(t_cube *cub, size_t i, size_t j)
 //check if map is surrounded by '1'
 void	ft_check_map_perimeter(t_cube *cub)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	while (cub->map[i])
@@ -56,7 +56,7 @@ static void	ft_fill_map_aux2(t_cube *cub, int matlen, int targetlen)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	while (i < matlen)
 	{
@@ -74,8 +74,10 @@ static void	ft_fill_map_aux2(t_cube *cub, int matlen, int targetlen)
 	}
 }
 
-//fill map wit '.' and substitute ' ' for '.' to check if it is surrounded by walls
-static void	ft_fill_map_aux(t_cube *cub, char **premap, int matlen, int targetlen)
+/*fill map wit '.' and substitute ' ' for '.'
+to check if it is surrounded by walls*/
+static void	ft_fill_map_aux(t_cube *cub, char **premap, int matlen,
+	int targetlen)
 {
 	int	i;
 	int	j;

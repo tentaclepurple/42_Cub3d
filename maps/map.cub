@@ -4,14 +4,14 @@ NO textures/NO.xpm
 SO              textures/SO.xpm
 WE       textures/WE.xpm
 
-F 220,3,   111         
+F 1,0,   0         
 
 
 
 
 EA    textures/EA.xpm
 
-C          22,       22, 111
+C          4,       1, 1
 
 111111111111111111111111
 100000000000000000000001

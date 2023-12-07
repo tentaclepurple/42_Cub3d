@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 13:25:38 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:35:57 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,35 @@
 # define RIGHTKEY 124
 # define LEFTKEY 123
 
-typedef struct s_pos_dir {
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
+typedef struct s_pos_dir
+{
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
 }			t_pos_dir;
 
-typedef struct	s_ray {
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	int		mapX;
-	int		mapY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	int		stepX;
-	int		stepY;
-	double	perpWallDist;
+typedef struct s_ray
+{
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	int		mapx;
+	int		mapy;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	int		stepx;
+	int		stepy;
+	double	perpwalldist;
 	int		hit;
 	int		side;
-}				t_ray;
+}			t_ray;
 
-typedef struct	s_cube
+typedef struct s_cube
 {
 	char		**map;
 	int			**imap;
@@ -104,9 +106,10 @@ typedef struct s_img
 	int		endian;
 	int		x;
 	int		y;
-} 				t_img;
+}			t_img;
 
-typedef struct	s_data {
+typedef struct s_data
+{
 	void		*mlx;
 	void		*mlx_w;
 	void		*img;
@@ -120,21 +123,21 @@ typedef struct	s_data {
 	int			**textures;
 	t_cube		info;
 	t_img		img_pp;
-	//CAMBIO
 	t_img		text[4];
 	t_move		move;
 }				t_data;
 
-typedef struct	s_draw {
-	int		drawStart;
-	int		drawEnd;
-	int		texNum;
-	int		texX;
-	double	wallX;
-	int		lineHeight;
+typedef struct s_draw
+{
+	int		drawstart;
+	int		drawend;
+	int		texnum;
+	int		texx;
+	double	wallx;
+	int		lineheight;
 }			t_draw;
 
-typedef struct	s_parse
+typedef struct s_parse
 {
 	int	i;
 	int	lastelem;
@@ -182,6 +185,11 @@ void	free_exit_mat(char *str, t_cube *cub);
 
 //ray_calc
 int		ft_update_img(void *param);
+int		ft_do_move(t_data *dt);
+void	ft_get_draw_info(t_data dt, t_ray ray, t_draw *draw);
+void	ft_calc_ray(t_ray *ray, int **map);
+t_ray	ft_init_ray(t_data dt, int x);
+void	ft_init_side(t_data dt, t_ray *ray);
 
 //pixel_put
 int		ft_close(int key, void *param);
@@ -195,11 +203,12 @@ void	ft_read_textures(t_data *dt);
 
 //game
 void	init_game(t_cube info);
-void	ft_rotate_right(t_data *dt, double rotSpeed);
-void	ft_rotate_left(t_data *dt, double rotSpeed);
-void	ft_move_forward(t_data *dt, double moveSpeed);
-void	ft_move_backward(t_data *dt, double moveSpeed);
-void	ft_move_left(t_data *dt, double moveSpeed);
-void	ft_move_right(t_data *dt, double moveSpeed);
+//void	init_game(t_cube *info);
+void	ft_rotate_right(t_data *dt, double rotspeed);
+void	ft_rotate_left(t_data *dt, double rotspeed);
+void	ft_move_forward(t_data *dt, double movespeed);
+void	ft_move_backward(t_data *dt, double movespeed);
+void	ft_move_left(t_data *dt, double movespeed);
+void	ft_move_right(t_data *dt, double movespeed);
 
 #endif
