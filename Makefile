@@ -2,7 +2,7 @@
 USER_NAME = Josu&Iban
 # Compiler and flags
 CC        = gcc
-CFLAGS    = -Wall -Wextra -Werror -I $(INC_DIR) -I $(MINILIBX_DIR) -I $(LIBFT_DIR)/include -O3 -g3 #-fsanitize=address
+CFLAGS    = -Wall -Wextra -Werror -I $(INC_DIR) -I $(MINILIBX_DIR) -I $(LIBFT_DIR)/include -O3 -g3 -fsanitize=address
 # Platform to run project (Linux and Mac)
 PLATFORM  := $(shell uname)
 # Directories

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/06 20:12:16 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/07 12:30:20 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@
 # define texWidth 128
 # define texHeight 128
 //LINUX
-#define UPKEY 65362
+/*#define UPKEY 65362
 #define DOWNKEY 65364
 #define RIGHTKEY 65363
-#define LEFTKEY 65361
+#define LEFTKEY 65361*/
 //MAC
-/*# define UPKEY 126
+# define UPKEY 126
 # define DOWNKEY 125
 # define RIGHTKEY 124
-# define LEFTKEY 123*/
+# define LEFTKEY 123
 
 
 typedef struct	s_pos_dir {
@@ -180,6 +180,7 @@ void	init_cub(t_cube *cub);
 */
 void	free_exit(char *str, t_cube *cub);
 void	free_exit_mat(char *str, t_cube *cub);
+void	free_exit_all(char *str, t_cube *cub);
 
 //ray_calc
 int		ft_update_img(void *param);
@@ -199,6 +200,7 @@ void 	ft_read_textures(t_data *dt);
 
 //game
 void	init_game(t_cube info);
+//void	init_game(t_cube *info);
 void	ft_rotate_right(t_data *dt, double rotSpeed);
 void	ft_rotate_left(t_data *dt, double rotSpeed);
 void	ft_move_forward(t_data *dt, double moveSpeed);

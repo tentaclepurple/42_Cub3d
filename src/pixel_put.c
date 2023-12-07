@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_put.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:33 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/06 20:16:01 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/07 12:09:03 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,12 @@ void	my_mlx_line_put(t_data *data, int x, t_draw draw)
 
 int	ft_close(int key, void *param)
 {
+	t_cube	*cub;
+	
+	cub = (t_cube *)param;
 	(void)key;
-	(void)param;
+	printf("param: %i\n", cub->imap[0][0]);
+	free_exit_all("Exit\n", param);
 	exit(0);
 }
 

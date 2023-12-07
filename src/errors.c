@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:41:58 by imontero          #+#    #+#             */
-/*   Updated: 2023/11/25 08:42:15 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/07 11:27:29 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_exit_mat(char *str, t_cube *cub)
 	free(cub->we);
 	free(cub->ea);
 	ft_free_split(cub->map);
-	exit(-1);
+	exit(0);
 }
 
 void	free_exit(char *str, t_cube *cub)
@@ -30,5 +30,26 @@ void	free_exit(char *str, t_cube *cub)
 	free(cub->so);
 	free(cub->we);
 	free(cub->ea);
-	exit(-1);
+	exit(0);
+}
+
+void	free_exit_all(char *str, t_cube *cub)
+{
+	int	i;
+
+	i = 0;
+	printf("imap: %i\n", cub->imap[0][0]);
+	printf("%s", str);
+	while(i < cub->map_size[0])
+	{
+		free(cub->imap[i]);
+		i++;
+	}
+	free(cub->imap);	
+	free(cub->no);
+	free(cub->so);
+	free(cub->we);
+	free(cub->ea);
+	ft_free_split(cub->map);
+	exit(0);
 }

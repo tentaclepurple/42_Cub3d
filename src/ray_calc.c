@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/06 20:16:56 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/07 10:44:06 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,9 @@ void	ft_get_draw_info(t_data dt, t_ray ray, t_draw *draw)
 
 int	ft_do_move(t_data *dt)
 {
-	double	moveSpeed = 0.01;
-	double	rotSpeed = 0.01;
-	
+	double	moveSpeed = 0.04;
+	double	rotSpeed = 0.02;
+
 	if (dt->move.rright)
 		ft_rotate_right(dt, rotSpeed);
 	if (dt->move.rleft)
@@ -145,7 +145,7 @@ int	ft_update_img(void *param)
 	t_draw	draw;
 	int		x;
 	t_data	*dt;
-	
+
 	dt = (t_data *)param;
 	ft_do_move(dt);
 	//Start a new MAIN image

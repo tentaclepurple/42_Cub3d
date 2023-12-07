@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_flat.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/06 20:49:25 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/07 12:34:25 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,8 @@ void	init_game(t_cube info)
 	dt.w = screenWidth;
 	dt.h = screenHeight;
 	ft_init_move(&dt);
-	
-
-		
 	dt.pos_dir.posX = (double)info.pl_pos[1] + 0.5;
 	dt.pos_dir.posY = (double)info.pl_pos[0] + 0.5;  //x and y start position
-	
 	dt.pos_dir.dirX = (double)info.pl_dir[1];
 	dt.pos_dir.dirY = (double)info.pl_dir[0]; //initial direction vector
 	dt.pos_dir.planeX = dt.pos_dir.dirY * (0.66);
@@ -90,6 +86,34 @@ void	init_game(t_cube info)
 	mlx_hook(dt.mlx_w, 2, (1L<<0), *ft_press_key, &dt);
 	mlx_hook(dt.mlx_w, 3, (1L<<1), *ft_release_key, &dt);
 	mlx_loop_hook(dt.mlx, &ft_update_img, &dt);
-	mlx_hook(dt.mlx_w, 17, 0, ft_close, NULL);
+	mlx_hook(dt.mlx_w, 17, 0, ft_close, &info);
 	mlx_loop(dt.mlx);
 }
+
+/*void	init_game(t_cube *info)
+{
+	t_data	*dt;
+
+	dt = (t_data *)malloc(sizeof(t_data));
+	dt->info = *info;
+	dt->mlx = mlx_init();
+	dt->w = screenWidth;
+	dt->h = screenHeight;
+	ft_init_move(dt);
+	dt->pos_dir.posX = (double)info->pl_pos[1] + 0.5;
+	dt->pos_dir.posY = (double)info->pl_pos[0] + 0.5;  //x and y start position
+	dt->pos_dir.dirX = (double)info->pl_dir[1];
+	dt->pos_dir.dirY = (double)info->pl_dir[0]; //initial direction vector
+	dt->pos_dir.planeX = dt->pos_dir.dirY * (0.66);
+	dt->pos_dir.planeY = dt->pos_dir.dirX * (-0.66); //the 2d raycaster version of camera plane
+	//double time = 0; //time of current frame
+	//double oldTime = 0; //time of previous frame
+	ft_read_textures(dt);
+	dt->mlx_w = mlx_new_window(dt->mlx, screenWidth, screenHeight, "Raycaster");
+	mlx_hook(dt->mlx_w, 2, (1L<<0), *ft_press_key, dt);
+	mlx_hook(dt->mlx_w, 3, (1L<<1), *ft_release_key, dt);
+	mlx_loop_hook(dt->mlx, &ft_update_img, dt);
+	printf("imap size joputa = %i\n", info->map_size[1]);
+	mlx_hook(dt->mlx_w, 17, 0, ft_close, info);
+	mlx_loop(dt->mlx);
+}*/

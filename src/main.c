@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/05 17:41:56 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:30:03 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void	ft_checks(t_cube *cub, int fd)
 	free(mapstr);
 	ft_check_premap(premap, cub);
 	ft_fill_map(cub, premap);
-	//ft_print_map(cub->map);	
 	free(str);
 	
 }
@@ -130,29 +129,22 @@ void	ft_get_vector(t_cube *cub, char c)
 	{
 		cub->pl_dir[1] = -1;
 		cub->pl_dir[0] = 0;
-		/*cub->pl_planeY = 0;
-		cub->pl_planeX = 0.66;*/
 	}
 	else if (c == 'S')
 	{
 		cub->pl_dir[1] = 1;
 		cub->pl_dir[0] = 0;
-		/*cub->pl_planeY = 0;
-		cub->pl_planeX = -0.66;*/
+
 	}
 	else if (c == 'E')
 	{
 		cub->pl_dir[1] = 0;
 		cub->pl_dir[0] = 1;
-		/*cub->pl_planeY = 0.66;
-		cub->pl_planeX = 0;*/
 	}
 	else if (c == 'W')
 	{
 		cub->pl_dir[1] = 0;
 		cub->pl_dir[0] = -1;
-		/*cub->pl_planeY = -0.66;
-		cub->pl_planeX = 0;*/
 	}
 }
 
@@ -244,20 +236,6 @@ void    ft_map_values(t_cube *cub)
     ft_get_pos(cub);
     ft_get_map_size(cub);
 	ft_map_char_2_int(cub);
-	//print imap
-	/*int i = 0;
-	int j = 0;
-	while (i < cub->map_size[0])
-	{
-		j = 0;
-		while (j < cub->map_size[1])
-		{
-			printf("%i", cub->imap[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}*/
 }
 
 /* main function */
@@ -280,3 +258,25 @@ int	main(int argc, char **argv)
 	free_exit("agur\n", &cub);
 	return (0);
 }
+
+
+/*int	main(int argc, char **argv)
+{
+	int	fd;
+	t_cube	*cub;
+
+	cub = malloc(sizeof(t_cube));
+	init_cub(cub);
+	if (argc != 2)
+		free_exit("Error\nWrong number of arguments\n", cub);
+	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 4))
+		free_exit("Error\nWrong file extension\n", cub);
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		free_exit("Error\nFile not found\n", cub);
+	ft_checks(cub, fd);
+    ft_map_values(cub);
+	init_game(cub);
+	free_exit("agur\n", cub);
+	return (0);
+}*/
