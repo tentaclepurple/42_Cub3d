@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_put_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:33 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/08 18:04:40 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 20:53:43 by josu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ void	my_mlx_line_put(t_data *data, int x, t_draw draw)
 
 int	ft_close(void *param)
 {
-	t_data	*dt;
+	(void)param;
+	/* t_data	*dt;
 
-	dt = (t_data *)param;
+	dt = (t_data *)param; */
 	//printf("no texture: %s\n", dt->info.no);
 	exit(0);
 }

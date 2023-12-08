@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc_aux_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:35:26 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 20:13:45 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 21:55:14 by josu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,12 +116,15 @@ int	ft_do_move(t_data *dt)
 {
 	double	movespeed;
 	double	rotspeed;
-
+	int		x;
+	int		y;
+	
 	movespeed = MOV_SPEED;
 	rotspeed = ROT_SPEED;
-	if (dt->move.rright)
+	mlx_mouse_get_pos(dt->mlx, dt->mlx_w, &x, &y);
+	if (dt->move.rright || x > SCREENWIDTH / 2 + SCREENWIDTH * 0.2)
 		ft_rotate_right(dt, rotspeed);
-	if (dt->move.rleft)
+	if (dt->move.rleft || x < SCREENWIDTH / 2 - SCREENWIDTH * 0.2)
 		ft_rotate_left(dt, rotspeed);
 	if (dt->move.mback)
 		ft_move_backward(dt, movespeed);

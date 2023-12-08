@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/08 19:59:18 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 21:41:06 by josu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <math.h>
 
 # include "../libraries/libft/libft.h"
-# include "../libraries/minilib/minilibx_opengl_20191021/mlx.h"
 
 # define SCREENWIDTH 1080
 # define SCREENHEIGHT 720
@@ -34,15 +33,18 @@
 # define RES 5
 
 //LINUX
-/*#define UPKEY 65362
+# include "../libraries/minilib/minilibx-linux/mlx.h"
+#define UPKEY 65362
 #define DOWNKEY 65364
 #define RIGHTKEY 65363
-#define LEFTKEY 65361*/
+#define LEFTKEY 65361
 //MAC
+/* 
+# include "../libraries/minilib/minilibx_opengl_20191021/mlx.h"
 # define UPKEY 126
 # define DOWNKEY 125
 # define RIGHTKEY 124
-# define LEFTKEY 123
+# define LEFTKEY 123 */
 
 typedef struct s_pos_dir
 {

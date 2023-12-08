@@ -11,6 +11,7 @@ SRC_DIR_BONUS =	src_bonus/
 INC_DIR   = 	inc/
 LIBFT_DIR = 	libraries/libft/
 OBJ_DIR   = 	src/
+OBJ_DIR_BONUS   = 	src_bonus/
 ifeq  ($(PLATFORM),Linux)
 MINILIBX_DIR = libraries/minilib/minilibx-linux/
 LINKING = -lmlx_Linux -lXext -lX11 -lm
@@ -113,7 +114,7 @@ clean:
 	$(MAKE) -C $(MINILIBX_DIR) clean
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(NAME_BONUS)
 	@echo "✔ $(USER_NAME)'s $(NAME) executable and .o files removal"
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
