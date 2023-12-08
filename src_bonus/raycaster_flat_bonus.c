@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/08 10:58:54 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:53:27 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_press_key(int key, void *param)
 	t_data	*dt;
 
 	dt = (t_data *)param;
+	printf("texture: %s\n", dt->info.no);
 	if (key == RIGHTKEY)
 		dt->move.rright = 1;
 	else if (key == LEFTKEY)
@@ -30,7 +31,7 @@ int	ft_press_key(int key, void *param)
 	else if (key == 0)
 		dt->move.mleft = 1;
 	else if (key == 53)
-		ft_close(NULL);
+		ft_close(param);
 		//ft_close(0, NULL);
 	return (0);
 }
