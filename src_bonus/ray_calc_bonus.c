@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/08 18:25:05 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 18:37:23 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	ft_minimap_bgr(t_data *dt)
 			if (dt->info.imap[i][j] == 1 || dt->info.imap[i][j] == 2
 				|| dt->info.imap[i][j] == 3)
 				mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->pix, \
-				i * RES, j * RES);
+				j * RES, i * RES);
 			j++;
 		}
 		i++;
 	}
 	mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->pix, \
-				dt->pos_dir.posx * RES, dt->pos_dir.posy * RES);
+				dt->pos_dir.posy * RES, dt->pos_dir.posx * RES);
 }
 
 int	ft_update_img(void *param)
