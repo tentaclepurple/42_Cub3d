@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:37:25 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 19:42:58 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 19:57:21 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ static void	ft_fill_map_aux(t_cube *cub, char **premap, int matlen,
 		{
 			if (premap[i][j] == ' ')
 				cub->map[i][j] = '.';
+			else if (premap[i][j] == 'D')
+				cub->map[i][j] = '2';
+			else if (premap[i][j] == 'K')
+				cub->map[i][j] = '3';
 			else
 				cub->map[i][j] = premap[i][j];
 			j++;

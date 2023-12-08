@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/08 18:18:00 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 19:59:18 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@
 # include "../libraries/libft/libft.h"
 # include "../libraries/minilib/minilibx_opengl_20191021/mlx.h"
 
-# define SCREENWIDTH 640
-# define SCREENHEIGHT 640
+# define SCREENWIDTH 1080
+# define SCREENHEIGHT 720
 # define MAPWIDTH 24
 # define MAPHEIGHT 24
 # define TEXWIDTH 128
 # define TEXHEIGHT 128
 
-# define MOV_SPEED 0.05
-# define ROT_SPEED 0.03
+# define MOV_SPEED 0.06
+# define ROT_SPEED 0.04
 # define RES 5
 
 //LINUX
@@ -116,6 +116,8 @@ typedef struct s_data
 	void		*img;
 	char		*addr;
 	void		*pix;
+	void		*door;
+	void		*key;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
