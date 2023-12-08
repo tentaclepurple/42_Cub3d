@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/07 19:43:27 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 10:58:54 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	ft_press_key(int key, void *param)
 	else if (key == 0)
 		dt->move.mleft = 1;
 	else if (key == 53)
-		ft_close(0, NULL);
+		ft_close(NULL);
+		//ft_close(0, NULL);
 	return (0);
 }
 
@@ -64,6 +65,9 @@ void	ft_init_move(t_data *dt)
 	dt->move.rleft = 0;
 }
 
+
+
+
 void	init_game(t_cube info)
 {
 	t_data	dt;
@@ -83,8 +87,9 @@ void	init_game(t_cube info)
 	dt.mlx_w = mlx_new_window(dt.mlx, SCREENWIDTH, SCREENHEIGHT, "Raycaster");
 	mlx_hook(dt.mlx_w, 2, (1L << 0), *ft_press_key, &dt);
 	mlx_hook(dt.mlx_w, 3, (1L << 1), *ft_release_key, &dt);
+	//mlx_mouse_hook(dt.mlx_w, &ft_mouse_move, &dt);
 	mlx_loop_hook(dt.mlx, &ft_update_img, &dt);
-	mlx_hook(dt.mlx_w, 17, 0, &ft_close, &info);
+	mlx_hook(dt.mlx_w, 17, 0, ft_close, &info);
 	mlx_loop(dt.mlx);
 }
 

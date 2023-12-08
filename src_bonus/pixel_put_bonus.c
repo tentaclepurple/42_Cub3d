@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:33 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/07 19:43:19 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 09:18:23 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,14 @@ void	my_mlx_line_put(t_data *data, int x, t_draw draw)
 	}
 }
 
-int	ft_close(int key, void *param)
+int	ft_close(t_cube *info)
 {
-	(void)key;
-	(void)param;
+	(void)info;
+	
+	/*t_cube	*info;
+	
+	info = (t_cube *)param;*/
+	//printf("no texture: %s\n", info->no);
 	exit(0);
 }
 

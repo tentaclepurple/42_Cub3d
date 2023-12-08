@@ -50,7 +50,8 @@ SRC_FILE_BONUS = pixel_put_bonus.c \
 				move_bonus.c \
 				move_aux_bonus.c \
 				checks_bonus.c \
-				main_bonus.c
+				main_bonus.c \
+				collisions_bonus.c
 
 SRC      =				$(addprefix $(SRC_DIR), $(SRC_FILE))
 OBJ_FILE =				$(SRC_FILE:.c=.o)

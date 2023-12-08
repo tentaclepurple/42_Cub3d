@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 20:15:44 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 09:18:55 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ t_ray	ft_init_ray(t_data dt, int x);
 void	ft_init_side(t_data dt, t_ray *ray);
 
 //pixel_put
-int		ft_close(int key, void *param);
+int		ft_close(t_cube *info);
 void	my_mlx_line_put(t_data *data, int x, t_draw draw);
 
 //texture
@@ -208,5 +208,8 @@ void	ft_move_forward(t_data *dt, double movespeed);
 void	ft_move_backward(t_data *dt, double movespeed);
 void	ft_move_left(t_data *dt, double movespeed);
 void	ft_move_right(t_data *dt, double movespeed);
+
+//bonus
+void	ft_collisions(t_data *dt);
 
 #endif
