@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/08 12:53:27 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 18:18:55 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_press_key(int key, void *param)
 	t_data	*dt;
 
 	dt = (t_data *)param;
-	printf("texture: %s\n", dt->info.no);
 	if (key == RIGHTKEY)
 		dt->move.rright = 1;
 	else if (key == LEFTKEY)
@@ -86,6 +85,7 @@ void	init_game(t_cube info)
 	dt.pos_dir.planey = dt.pos_dir.dirx * (-0.66);
 	ft_read_textures(&dt);
 	dt.mlx_w = mlx_new_window(dt.mlx, SCREENWIDTH, SCREENHEIGHT, "Raycaster");
+	//dt.pix = mlx_xpm_file_to_image(dt.mlx, "textures/pixel3.xpm", &res, &res);
 	mlx_hook(dt.mlx_w, 2, (1L << 0), *ft_press_key, &dt);
 	mlx_hook(dt.mlx_w, 3, (1L << 1), *ft_release_key, &dt);
 	//mlx_mouse_hook(dt.mlx_w, &ft_mouse_move, &dt);

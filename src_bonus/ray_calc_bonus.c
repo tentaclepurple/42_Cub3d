@@ -6,11 +6,37 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/08 11:47:14 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 18:25:05 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cube_bonus.h"
+
+/* 
+	print the minimap
+*/
+void	ft_minimap_bgr(t_data *dt)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < dt->info.map_size[0])
+	{
+		j = 0;
+		while (j < dt->info.map_size[1])
+		{
+			if (dt->info.imap[i][j] == 1 || dt->info.imap[i][j] == 2
+				|| dt->info.imap[i][j] == 3)
+				mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->pix, \
+				i * RES, j * RES);
+			j++;
+		}
+		i++;
+	}
+	mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->pix, \
+				dt->pos_dir.posx * RES, dt->pos_dir.posy * RES);
+}
 
 int	ft_update_img(void *param)
 {
@@ -36,6 +62,7 @@ int	ft_update_img(void *param)
 	}
 	ft_collisions(dt);
 	mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->img_pp.img, 0, 0);
+	ft_minimap_bgr(dt);
 	mlx_destroy_image(dt->mlx, dt->img_pp.img);
 	return (0);
 }

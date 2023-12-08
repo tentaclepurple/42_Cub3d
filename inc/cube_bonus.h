@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/08 12:47:26 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 18:18:00 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 # define MOV_SPEED 0.05
 # define ROT_SPEED 0.03
+# define RES 5
 
 //LINUX
 /*#define UPKEY 65362
@@ -114,6 +115,7 @@ typedef struct s_data
 	void		*mlx_w;
 	void		*img;
 	char		*addr;
+	void		*pix;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
@@ -211,5 +213,6 @@ void	ft_move_right(t_data *dt, double movespeed);
 
 //bonus
 void	ft_collisions(t_data *dt);
+void	ft_minimap_bgr(t_data *dt);
 
 #endif

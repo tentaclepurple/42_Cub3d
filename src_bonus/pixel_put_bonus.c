@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:33 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/08 13:06:35 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 18:04:40 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_close(void *param)
 	t_data	*dt;
 
 	dt = (t_data *)param;
-	printf("no texture: %s\n", dt->info.no);
+	//printf("no texture: %s\n", dt->info.no);
 	exit(0);
 }
 

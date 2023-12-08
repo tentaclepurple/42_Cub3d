@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:25:04 by josu              #+#    #+#             */
-/*   Updated: 2023/12/07 19:43:30 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/08 18:19:00 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ t_img	ft_read_texture(void *mlx, char *name)
 
 void	ft_read_textures(t_data *dt)
 {
+	int		res;
+	
+	res = RES;	
+	dt->pix = mlx_xpm_file_to_image(dt->mlx, "textures/pixel3.xpm", &res, &res);
 	dt->text[0] = ft_read_texture(dt->mlx, dt->info.so);
 	dt->text[1] = ft_read_texture(dt->mlx, dt->info.no);
 	dt->text[2] = ft_read_texture(dt->mlx, dt->info.ea);
