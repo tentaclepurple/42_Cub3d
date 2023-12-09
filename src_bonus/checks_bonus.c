@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:51:13 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 19:42:22 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/09 13:52:57 by josu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,10 @@ void	ft_map_char_2_int(t_cube *cub)
 		{
 			if (cub->map[i][j] == '0')
 				cub->imap[i][j] = 0;
+			else if (cub->map[i][j] == '2')
+				cub->imap[i][j] = 2;
+			else if (cub->map[i][j] == '3')
+				cub->imap[i][j] = 3;
 			else
 				cub->imap[i][j] = 1;
 			j++;

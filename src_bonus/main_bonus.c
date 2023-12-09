@@ -6,7 +6,7 @@
 /*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/08 21:18:42 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/09 13:53:51 by josu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_check_premap(char **premap, t_cube *cub)
 		j = 0;
 		while (premap[i][j])
 		{
-			if (!ft_strchr("01NSEWDK ", premap[i][j]))
+			if (!ft_strchr("0123NSEWDK ", premap[i][j]))
 			{
 				ft_free_split(premap);
 				free_exit("Error\nUnexpected character(s) in map\n", cub);

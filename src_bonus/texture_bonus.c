@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:25:04 by josu              #+#    #+#             */
-/*   Updated: 2023/12/08 18:19:00 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:17:24 by josu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,6 @@ void	ft_read_textures(t_data *dt)
 	dt->text[1] = ft_read_texture(dt->mlx, dt->info.no);
 	dt->text[2] = ft_read_texture(dt->mlx, dt->info.ea);
 	dt->text[3] = ft_read_texture(dt->mlx, dt->info.we);
+	dt->text[4] = ft_read_texture(dt->mlx, "textures/door.xpm");
+	dt->text[5] = ft_read_texture(dt->mlx, "textures/key1.xpm");
 }

@@ -6,7 +6,7 @@
 /*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/08 21:46:04 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/09 13:55:06 by josu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ft_press_key(int key, void *param)
 		dt->move.mleft = 1;
 	else if (key == 53)
 		ft_close(param);
+	else if (key == SPACEKEY)
+		dt->move.spacebar = 1;
 		//ft_close(0, NULL);
 	return (0);
 }
@@ -52,6 +54,8 @@ int	ft_release_key(int key, void *param)
 		dt->move.mright = 0;
 	else if (key == 0)
 		dt->move.mleft = 0;
+	else if (key == SPACEKEY)
+		dt->move.spacebar = 0;
 	return (0);
 }
 
@@ -63,10 +67,15 @@ void	ft_init_move(t_data *dt)
 	dt->move.mleft = 0;
 	dt->move.rright = 0;
 	dt->move.rleft = 0;
+	dt->move.spacebar = 0;
 }
 
-
-
+void	ft_init_sprite(t_data *dt)
+{
+	dt->sprite.perpdist = 0;
+	dt->sprite.x= 0;
+	dt->sprite.lineheight = 0;
+}
 
 void	init_game(t_cube info)
 {
