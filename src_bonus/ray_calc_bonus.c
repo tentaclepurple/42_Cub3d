@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/10 19:57:53 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:48:19 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 */
 void	ft_minimap_bgr(t_data *dt)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < dt->info.map_size[0])
@@ -38,28 +38,23 @@ void	ft_minimap_bgr(t_data *dt)
 				dt->pos_dir.posy * RES, dt->pos_dir.posx * RES);
 }
 
-
 void	sprite_line_put(t_data *data, int x, t_img img, int start)
 {
-	int			color;
-	double		step;
-	double		texpos;
-	int			y;
-	int			texy;
-	int			*dst;
+	t_slp	slp;
 
-	step = 1.0 * TEXHEIGHT / data->sprite.lineheight;
-	texpos = 0;
-	y = 0;
-	while (y < data->sprite.lineheight)
+	slp.step = 1.0 * TEXHEIGHT / data->sprite.lineheight;
+	slp.texpos = 0;
+	slp.y = 0;
+	while (slp.y < data->sprite.lineheight)
 	{
-		texy = (int)texpos & (TEXHEIGHT - 1);
-		texpos += step;
-		color = data->text[5].addr[TEXHEIGHT * texy + (x + start) * TEXHEIGHT / data->sprite.lineheight];
-		dst = img.addr + (y * img.line_length
-			/ (img.bits_per_pixel / 8) + x);
-		*(unsigned int *)dst = color;
-		y++;
+		slp.texy = (int)slp.texpos & (TEXHEIGHT - 1);
+		slp.texpos += slp.step;
+		slp.color = data->text[5].addr[TEXHEIGHT * slp.texy + (x + start)
+			* TEXHEIGHT / data->sprite.lineheight];
+		slp.dst = img.addr + (slp.y * img.line_length
+				/ (img.bits_per_pixel / 8) + x);
+		*(unsigned int *)slp.dst = slp.color;
+		slp.y++;
 	}
 }
 
@@ -102,7 +97,8 @@ void	ft_put_sprite(t_data *dt)
 		sprite_line_put(dt, x, im_s, start);
 		x++;
 	}
-	mlx_put_image_to_window(dt->mlx, dt->mlx_w, im_s.img, dt->sprite.x, SCREENHEIGHT /2 - dt->sprite.lineheight / 2);
+	mlx_put_image_to_window(dt->mlx, dt->mlx_w, im_s.img, dt->sprite.x, \
+			SCREENHEIGHT / 2 - dt->sprite.lineheight / 2);
 	mlx_destroy_image(dt->mlx, im_s.img);
 }
 
@@ -131,11 +127,11 @@ int	ft_update_img(void *param)
 		my_mlx_line_put(dt, x, draw);
 		x++;
 	}
-	ft_collisions(dt);
+	/* ft_collisions(dt);
 	mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->img_pp.img, 0, 0);
 	ft_minimap_bgr(dt);
 	if (dt->sprite.perpdist != 0)
 		ft_put_sprite(dt);
-	mlx_destroy_image(dt->mlx, dt->img_pp.img);
-	return (0);
+	mlx_destroy_image(dt->mlx, dt->img_pp.img); */
+	return (ft_update_img_aux(&dt), 0);
 }

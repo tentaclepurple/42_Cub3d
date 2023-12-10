@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/10 19:57:40 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:46:30 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@
 # define RIGHTKEY 124
 # define LEFTKEY 123
 # define SPACEKEY 49
+
+typedef struct s_slp
+{
+	int			color;
+	double		step;
+	double		texpos;
+	int			y;
+	int			texy;
+	int			*dst;
+}				t_slp;
+
 
 typedef struct s_sprite
 {
@@ -208,6 +219,9 @@ void	ft_calc_ray(t_ray *ray, int **map, t_data *dt, int x);
 t_ray	ft_init_ray(t_data dt, int x);
 void	ft_init_side(t_data dt, t_ray *ray);
 void	ft_init_sprite(t_data *dt);
+void	ft_calc_ray_aux(t_ray *ray);
+void	ft_get_draw_info_aux(t_draw *draw, t_ray *ray);
+void	ft_update_img_aux(t_data *dt);
 
 //pixel_put
 int		ft_close(void *param);

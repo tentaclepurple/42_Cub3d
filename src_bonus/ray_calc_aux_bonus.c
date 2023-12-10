@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc_aux_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:35:26 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/10 19:47:32 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:14:27 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	ft_calc_ray(t_ray *ray, int **map, t_data *dt, int x)
 {
 	while (ray->hit == 0)
 	{
-		if (ray->sidedistx < ray->sidedisty)
+		ft_calc_ray_aux(&ray);
+		/* if (ray->sidedistx < ray->sidedisty)
 		{
 			ray->sidedistx += ray->deltadistx;
 			ray->mapx += ray->stepx;
@@ -74,7 +75,7 @@ void	ft_calc_ray(t_ray *ray, int **map, t_data *dt, int x)
 			ray->sidedisty += ray->deltadisty;
 			ray->mapy += ray->stepy;
 			ray->side = 1;
-		}
+		} */
 		if (map[ray->mapx][ray->mapy] > 0 && map[ray->mapx][ray->mapy] < 3)
 			ray->hit = 1;
 		if (map[ray->mapx][ray->mapy] == 2)
@@ -120,12 +121,13 @@ void	ft_get_draw_info(t_data dt, t_ray ray, t_draw *draw)
 		draw->wallx = dt.pos_dir.posy + ray.perpwalldist * ray.raydiry;
 	else
 		draw->wallx = dt.pos_dir.posx + ray.perpwalldist * ray.raydirx;
-	draw->wallx -= floor((draw->wallx));
+	ft_get_draw_info_aux(&draw, &ray);
+	/* draw->wallx -= floor((draw->wallx));
 	draw->texx = (int)(draw->wallx * (double)TEXWIDTH);
 	if (ray.side == 0 && ray.raydirx > 0)
 		draw->texx = TEXWIDTH - draw->texx - 1;
 	if (ray.side == 1 && ray.raydiry < 0)
-		draw->texx = TEXWIDTH - draw->texx - 1;
+		draw->texx = TEXWIDTH - draw->texx - 1; */
 }
 
 int	ft_do_move(t_data *dt)
@@ -134,7 +136,7 @@ int	ft_do_move(t_data *dt)
 	double	rotspeed;
 	int		x;
 	int		y;
-	
+
 	movespeed = MOV_SPEED;
 	rotspeed = ROT_SPEED;
 	mlx_mouse_get_pos(dt->mlx_w, &x, &y);

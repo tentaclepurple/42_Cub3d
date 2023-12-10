@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_flat_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/10 17:46:37 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:33:31 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	ft_press_key(int key, void *param)
 		ft_close(param);
 	else if (key == SPACEKEY)
 		dt->move.spacebar = 1;
-		//ft_close(0, NULL);
 	return (0);
 }
 
@@ -95,35 +94,9 @@ void	init_game(t_cube info)
 	dt.pos_dir.planey = dt.pos_dir.dirx * (-0.66);
 	ft_read_textures(&dt);
 	dt.mlx_w = mlx_new_window(dt.mlx, SCREENWIDTH, SCREENHEIGHT, "Raycaster");
-	//dt.pix = mlx_xpm_file_to_image(dt.mlx, "textures/pixel3.xpm", &res, &res);
 	mlx_hook(dt.mlx_w, 2, (1L << 0), *ft_press_key, &dt);
 	mlx_hook(dt.mlx_w, 3, (1L << 1), *ft_release_key, &dt);
-	//mlx_mouse_hook(dt.mlx_w, &ft_mouse_move, &dt);
 	mlx_loop_hook(dt.mlx, &ft_update_img, &dt);
 	mlx_hook(dt.mlx_w, 17, 0, ft_close, &info);
 	mlx_loop(dt.mlx);
 }
-
-/*void	init_game(t_cube *info)
-{
-	t_data	dt;
-
-	dt.info = info;
-	dt.mlx = mlx_init();
-	dt.w = SCREENWIDTH;
-	dt.h = SCREENHEIGHT;
-	ft_init_move(&dt);
-	dt.pos_dir.posx = (double)info->pl_pos[1] + 0.5;
-	dt.pos_dir.posy = (double)info->pl_pos[0] + 0.5;
-	dt.pos_dir.dirx = (double)info->pl_dir[1];
-	dt.pos_dir.diry = (double)info->pl_dir[0];
-	dt.pos_dir.planex = dt.pos_dir.diry * (0.66);
-	dt.pos_dir.planey = dt.pos_dir.dirx * (-0.66);
-	ft_read_textures(&dt);
-	dt.mlx_w = mlx_new_window(dt.mlx, SCREENWIDTH, SCREENHEIGHT, "Raycaster");
-	mlx_hook(dt.mlx_w, 2, (1L << 0), *ft_press_key, &dt);
-	mlx_hook(dt.mlx_w, 3, (1L << 1), *ft_release_key, &dt);
-	mlx_loop_hook(dt.mlx, &ft_update_img, &dt);
-	mlx_hook(dt.mlx_w, 17, 0, ft_close, info);
-	mlx_loop(dt.mlx);
-}*/

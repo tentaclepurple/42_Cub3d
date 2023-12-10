@@ -40,6 +40,7 @@ SRC_FILE =	 	pixel_put.c \
 SRC_FILE_BONUS = pixel_put_bonus.c \
 				ray_calc_bonus.c \
 				ray_calc_aux_bonus.c \
+				ray_calc_aux2_bonus.c
 				raycaster_flat_bonus.c \
 				texture_bonus.c \
 				custom_split_bonus.c \
