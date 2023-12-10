@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 18:25:04 by josu              #+#    #+#             */
-/*   Updated: 2023/12/08 18:19:00 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:34:29 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,31 @@ t_img	ft_read_texture(void *mlx, char *name)
 	image.line_length = image.line_length / 4;
 	return (image);
 }
+void	ft_change_key(t_data *dt)
+{
+	static int  i = 1;
+	
+    if (i % 10 == 0)
+		dt->text[5] = ft_read_texture(dt->mlx, "textures/key1.xpm");
+    if (i % 20 == 0)
+       dt->text[5] = ft_read_texture(dt->mlx, "textures/key2.xpm");
+    if (i % 30 == 0)
+        dt->text[5] = ft_read_texture(dt->mlx, "textures/key7.xpm");
+    if (i % 40 == 0)
+        dt->text[5] = ft_read_texture(dt->mlx, "textures/key4.xpm");
+    if (i % 50 == 0)
+        dt->text[5] = ft_read_texture(dt->mlx, "textures/key5.xpm");
+	if (i % 60 == 0)
+        dt->text[5] = ft_read_texture(dt->mlx, "textures/key6.xpm");
+	if (i % 70 == 0)
+        dt->text[5] = ft_read_texture(dt->mlx, "textures/key7.xpm");
+    if (i % 80 == 0)
+    {
+        dt->text[5] = ft_read_texture(dt->mlx, "textures/key8.xpm");
+        i = 0;
+    }
+    i++;
+}
 
 void	ft_read_textures(t_data *dt)
 {
@@ -46,4 +71,6 @@ void	ft_read_textures(t_data *dt)
 	dt->text[1] = ft_read_texture(dt->mlx, dt->info.no);
 	dt->text[2] = ft_read_texture(dt->mlx, dt->info.ea);
 	dt->text[3] = ft_read_texture(dt->mlx, dt->info.we);
+	dt->text[4] = ft_read_texture(dt->mlx, "textures/door.xpm");
+	dt->text[5] = ft_read_texture(dt->mlx, "textures/key1.xpm");
 }

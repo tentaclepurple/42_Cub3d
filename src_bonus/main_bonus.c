@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:26:21 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/08 18:45:35 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:47:47 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ char	*ft_extract_map(t_cube *cub, char *str)
 	}
 	if (ft_strlen(str) > i)
 	{
-		printf("len: %zu\n", ft_strlen(str));
-		printf("i = %zu\n", i);
+		//printf("len: %zu\n", ft_strlen(str));
+		//printf("i = %zu\n", i);
 		free(str);
 		free_exit("Error\nUnexpected elements after map\n", cub);
 	}

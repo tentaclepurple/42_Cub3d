@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_aux_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:57:33 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 19:43:04 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:59:10 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,36 @@ void	ft_rotate_left(t_data *dt, double rotspeed)
 		- dt->pos_dir.planey * sin(rotspeed);
 	dt->pos_dir.planey = tempplanex * sin(rotspeed)
 		+ dt->pos_dir.planey * cos(rotspeed);
+}
+
+void	ft_change_door(t_data *dt)
+{
+	int	x;
+	int	y;
+
+	x = (int)dt->pos_dir.posx;
+	y = (int)dt->pos_dir.posy;
+	if (fabs((double)dt->info.imap[x + 1][y]) == 2)
+		dt->info.imap[x + 1][y] *= (-1);
+	if (fabs((double)dt->info.imap[x - 1][y]) == 2)
+		dt->info.imap[x - 1][y] *= (-1);
+	if (fabs((double)dt->info.imap[x][y + 1]) == 2)
+		dt->info.imap[x][y + 1] *= (-1);
+	if (fabs((double)dt->info.imap[x][y - 1]) == 2)
+		dt->info.imap[x][y - 1] *= (-1);
+	dt->move.spacebar = 0;
+}
+
+void	ft_take_key(t_data *dt)
+{
+	int	x;
+	int	y;
+
+	x = (int)dt->pos_dir.posx;
+	y = (int)dt->pos_dir.posy;
+	if ((double)dt->info.imap[x][y] == -1)
+	{
+		printf("KEY TAKEN!\n");
+		dt->info.imap[x][y] = 0;
+	}
 }

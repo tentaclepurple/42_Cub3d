@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fillmap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:37:25 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/08 19:57:21 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:49:14 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ static void	ft_fill_map_aux(t_cube *cub, char **premap, int matlen,
 			if (premap[i][j] == ' ')
 				cub->map[i][j] = '.';
 			else if (premap[i][j] == 'D')
-				cub->map[i][j] = '2';
+				cub->map[i][j] = 'D';
 			else if (premap[i][j] == 'K')
-				cub->map[i][j] = '3';
+				cub->map[i][j] = 'K';
 			else
 				cub->map[i][j] = premap[i][j];
 			j++;

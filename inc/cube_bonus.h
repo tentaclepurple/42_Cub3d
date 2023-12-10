@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/08 19:59:18 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:57:40 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <math.h>
 
 # include "../libraries/libft/libft.h"
-# include "../libraries/minilib/minilibx_opengl_20191021/mlx.h"
 
 # define SCREENWIDTH 1080
 # define SCREENHEIGHT 720
@@ -34,15 +33,28 @@
 # define RES 5
 
 //LINUX
-/*#define UPKEY 65362
+/* # include "../libraries/minilib/minilibx-linux/mlx.h"
+#define UPKEY 65362
 #define DOWNKEY 65364
 #define RIGHTKEY 65363
-#define LEFTKEY 65361*/
+#define LEFTKEY 65361
+#define SPACEKEY 32 */
 //MAC
+# include "../libraries/minilib/minilibx_opengl_20191021/mlx.h"
 # define UPKEY 126
 # define DOWNKEY 125
 # define RIGHTKEY 124
 # define LEFTKEY 123
+# define SPACEKEY 49
+
+typedef struct s_sprite
+{
+	double	perpdist;
+	int		lineheight;
+	int		x;
+	int		x_end;
+	int		flag;
+}			t_sprite;
 
 typedef struct s_pos_dir
 {
@@ -70,6 +82,7 @@ typedef struct s_ray
 	double	perpwalldist;
 	int		hit;
 	int		side;
+	int		door;
 }			t_ray;
 
 typedef struct s_cube
@@ -96,6 +109,7 @@ typedef struct s_move
 	int	mleft;
 	int	rright;
 	int	rleft;
+	int	spacebar;
 }	t_move;
 
 typedef struct s_img
@@ -127,8 +141,9 @@ typedef struct s_data
 	int			**textures;
 	t_cube		info;
 	t_img		img_pp;
-	t_img		text[4];
+	t_img		text[6];
 	t_move		move;
+	t_sprite	sprite;
 }				t_data;
 
 typedef struct s_draw
@@ -189,9 +204,10 @@ void	free_exit_mat(char *str, t_cube *cub);
 int		ft_update_img(void *param);
 int		ft_do_move(t_data *dt);
 void	ft_get_draw_info(t_data dt, t_ray ray, t_draw *draw);
-void	ft_calc_ray(t_ray *ray, int **map);
+void	ft_calc_ray(t_ray *ray, int **map, t_data *dt, int x);
 t_ray	ft_init_ray(t_data dt, int x);
 void	ft_init_side(t_data dt, t_ray *ray);
+void	ft_init_sprite(t_data *dt);
 
 //pixel_put
 int		ft_close(void *param);
@@ -202,6 +218,7 @@ int		**ft_gen_texture(void);
 void	ft_free_textures(int **textures);
 t_img	ft_read_texture(void *mlx, char *name);
 void	ft_read_textures(t_data *dt);
+void	ft_change_key(t_data *dt);
 
 //game
 void	init_game(t_cube info);
@@ -212,6 +229,8 @@ void	ft_move_forward(t_data *dt, double movespeed);
 void	ft_move_backward(t_data *dt, double movespeed);
 void	ft_move_left(t_data *dt, double movespeed);
 void	ft_move_right(t_data *dt, double movespeed);
+void	ft_change_door(t_data *dt);
+void	ft_take_key(t_data *dt);
 
 //bonus
 void	ft_collisions(t_data *dt);

@@ -1,5 +1,7 @@
 {
 	"files.associations": {
-		"cube_bonus.h": "c"
+		"cube_bonus.h": "c",
+		"cmath": "c",
+		"algorithm": "c"
 	}
 }

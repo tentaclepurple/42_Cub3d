@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc_aux_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:35:26 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 20:13:45 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/10 19:47:32 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ t_ray	ft_init_ray(t_data dt, int x)
 		ray.deltadisty = 1e30;
 	else
 		ray.deltadisty = fabs(1 / ray.raydiry);
+	ray.door = 0;
 	ft_init_side(dt, &ray);
 	return (ray);
 }
 
-void	ft_calc_ray(t_ray *ray, int **map)
+void	ft_calc_ray(t_ray *ray, int **map, t_data *dt, int x)
 {
 	while (ray->hit == 0)
 	{
@@ -74,8 +75,21 @@ void	ft_calc_ray(t_ray *ray, int **map)
 			ray->mapy += ray->stepy;
 			ray->side = 1;
 		}
-		if (map[ray->mapx][ray->mapy] > 0)
+		if (map[ray->mapx][ray->mapy] > 0 && map[ray->mapx][ray->mapy] < 3)
 			ray->hit = 1;
+		if (map[ray->mapx][ray->mapy] == 2)
+			ray->door = 1;
+		if (map[ray->mapx][ray->mapy] == -1 && dt->sprite.perpdist == 0)
+		{
+			if (ray->side == 0)
+				dt->sprite.perpdist = (ray->sidedistx - ray->deltadistx);
+			else
+				dt->sprite.perpdist = (ray->sidedisty - ray->deltadisty);
+			dt->sprite.lineheight = (int)(dt->h / dt->sprite.perpdist);
+			dt->sprite.x = x;
+		}
+		if (map[ray->mapx][ray->mapy] == -1)
+			dt->sprite.x_end = x;
 	}
 	if (ray->side == 0)
 		ray->perpwalldist = (ray->sidedistx - ray->deltadistx);
@@ -100,6 +114,8 @@ void	ft_get_draw_info(t_data dt, t_ray ray, t_draw *draw)
 		draw->texnum = 2;
 	else if (ray.side == 1 && ray.raydiry < 0)
 		draw->texnum = 3;
+	if (ray.door == 1)
+		draw->texnum = 4;
 	if (ray.side == 0)
 		draw->wallx = dt.pos_dir.posy + ray.perpwalldist * ray.raydiry;
 	else
@@ -116,12 +132,15 @@ int	ft_do_move(t_data *dt)
 {
 	double	movespeed;
 	double	rotspeed;
-
+	int		x;
+	int		y;
+	
 	movespeed = MOV_SPEED;
 	rotspeed = ROT_SPEED;
-	if (dt->move.rright)
+	mlx_mouse_get_pos(dt->mlx_w, &x, &y);
+	if (dt->move.rright || x > SCREENWIDTH / 2 + SCREENWIDTH * 0.2)
 		ft_rotate_right(dt, rotspeed);
-	if (dt->move.rleft)
+	if (dt->move.rleft || x < SCREENWIDTH / 2 - SCREENWIDTH * 0.2)
 		ft_rotate_left(dt, rotspeed);
 	if (dt->move.mback)
 		ft_move_backward(dt, movespeed);
@@ -131,5 +150,7 @@ int	ft_do_move(t_data *dt)
 		ft_move_right(dt, movespeed);
 	if (dt->move.mleft)
 		ft_move_left(dt, movespeed);
+	if (dt->move.spacebar)
+		ft_change_door(dt);
 	return (0);
 }

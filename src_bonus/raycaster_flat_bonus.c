@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_flat_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/08 18:18:55 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:46:37 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	ft_press_key(int key, void *param)
 		dt->move.mleft = 1;
 	else if (key == 53)
 		ft_close(param);
+	else if (key == SPACEKEY)
+		dt->move.spacebar = 1;
 		//ft_close(0, NULL);
 	return (0);
 }
@@ -52,6 +54,8 @@ int	ft_release_key(int key, void *param)
 		dt->move.mright = 0;
 	else if (key == 0)
 		dt->move.mleft = 0;
+	else if (key == SPACEKEY)
+		dt->move.spacebar = 0;
 	return (0);
 }
 
@@ -63,10 +67,16 @@ void	ft_init_move(t_data *dt)
 	dt->move.mleft = 0;
 	dt->move.rright = 0;
 	dt->move.rleft = 0;
+	dt->move.spacebar = 0;
 }
 
-
-
+void	ft_init_sprite(t_data *dt)
+{
+	dt->sprite.perpdist = 0;
+	dt->sprite.x = 0;
+	dt->sprite.x_end = 0;
+	dt->sprite.lineheight = 0;
+}
 
 void	init_game(t_cube info)
 {
