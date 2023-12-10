@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_calc_aux_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:35:26 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/09 13:46:12 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/10 19:47:32 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_ray	ft_init_ray(t_data dt, int x)
 	return (ray);
 }
 
-void	ft_calc_ray(t_ray *ray, int **map, t_data *dt)
+void	ft_calc_ray(t_ray *ray, int **map, t_data *dt, int x)
 {
 	while (ray->hit == 0)
 	{
@@ -79,14 +79,17 @@ void	ft_calc_ray(t_ray *ray, int **map, t_data *dt)
 			ray->hit = 1;
 		if (map[ray->mapx][ray->mapy] == 2)
 			ray->door = 1;
-		if (map[ray->mapx][ray->mapy] == 3 && dt->sprite.perpdist == 0)
+		if (map[ray->mapx][ray->mapy] == -1 && dt->sprite.perpdist == 0)
 		{
 			if (ray->side == 0)
 				dt->sprite.perpdist = (ray->sidedistx - ray->deltadistx);
 			else
 				dt->sprite.perpdist = (ray->sidedisty - ray->deltadisty);
 			dt->sprite.lineheight = (int)(dt->h / dt->sprite.perpdist);
+			dt->sprite.x = x;
 		}
+		if (map[ray->mapx][ray->mapy] == -1)
+			dt->sprite.x_end = x;
 	}
 	if (ray->side == 0)
 		ray->perpwalldist = (ray->sidedistx - ray->deltadistx);
@@ -134,7 +137,7 @@ int	ft_do_move(t_data *dt)
 	
 	movespeed = MOV_SPEED;
 	rotspeed = ROT_SPEED;
-	mlx_mouse_get_pos(dt->mlx, dt->mlx_w, &x, &y);
+	mlx_mouse_get_pos(dt->mlx_w, &x, &y);
 	if (dt->move.rright || x > SCREENWIDTH / 2 + SCREENWIDTH * 0.2)
 		ft_rotate_right(dt, rotspeed);
 	if (dt->move.rleft || x < SCREENWIDTH / 2 - SCREENWIDTH * 0.2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collisions_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 08:00:06 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/08 21:27:40 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/10 20:04:31 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	ft_collisions(t_data *dt)
 {
+	static int	i = 0;
+	
 	if ((dt->info.imap[(int)(dt->pos_dir.posx) - 1][(int)(dt->pos_dir.posy)]
-		== 1 && (dt->pos_dir.posx - (int)dt->pos_dir.posx < 0.04))
+		> 0 && (dt->pos_dir.posx - (int)dt->pos_dir.posx < 0.04))
 		|| ((dt->info.imap[(int)(dt->pos_dir.posx) + 1][(int)(dt->pos_dir.posy)]
-		== 1 && dt->pos_dir.posx - (int)dt->pos_dir.posx > 0.94))
+		> 0 && dt->pos_dir.posx - (int)dt->pos_dir.posx > 0.94))
 		|| ((dt->info.imap[(int)(dt->pos_dir.posx)][(int)(dt->pos_dir.posy - 1)]
-		== 1 && dt->pos_dir.posy - (int)dt->pos_dir.posy < 0.04))
+		> 0 && dt->pos_dir.posy - (int)dt->pos_dir.posy < 0.04))
 		|| ((dt->info.imap[(int)(dt->pos_dir.posx)][(int)(dt->pos_dir.posy + 1)]
-		== 1 && dt->pos_dir.posy - (int)dt->pos_dir.posy > 0.94)))
-		printf("COLLISION!!!\n");
-	/* else
-		printf("\n"); */
+		> 0 && dt->pos_dir.posy - (int)dt->pos_dir.posy > 0.94)))
+		printf("COLLISION Nº%i!!!\n", ++i);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster_flat_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/09 13:55:06 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/10 17:46:37 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	ft_init_move(t_data *dt)
 void	ft_init_sprite(t_data *dt)
 {
 	dt->sprite.perpdist = 0;
-	dt->sprite.x= 0;
+	dt->sprite.x = 0;
+	dt->sprite.x_end = 0;
 	dt->sprite.lineheight = 0;
 }
 

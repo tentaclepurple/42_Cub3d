@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/09 15:16:40 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/10 19:57:40 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,27 @@
 # define RES 5
 
 //LINUX
-# include "../libraries/minilib/minilibx-linux/mlx.h"
+/* # include "../libraries/minilib/minilibx-linux/mlx.h"
 #define UPKEY 65362
 #define DOWNKEY 65364
 #define RIGHTKEY 65363
 #define LEFTKEY 65361
-#define SPACEKEY 32
+#define SPACEKEY 32 */
 //MAC
-/* 
 # include "../libraries/minilib/minilibx_opengl_20191021/mlx.h"
 # define UPKEY 126
 # define DOWNKEY 125
 # define RIGHTKEY 124
-# define LEFTKEY 123 */
+# define LEFTKEY 123
+# define SPACEKEY 49
 
 typedef struct s_sprite
 {
 	double	perpdist;
 	int		lineheight;
 	int		x;
+	int		x_end;
+	int		flag;
 }			t_sprite;
 
 typedef struct s_pos_dir
@@ -202,7 +204,7 @@ void	free_exit_mat(char *str, t_cube *cub);
 int		ft_update_img(void *param);
 int		ft_do_move(t_data *dt);
 void	ft_get_draw_info(t_data dt, t_ray ray, t_draw *draw);
-void	ft_calc_ray(t_ray *ray, int **map, t_data *dt);
+void	ft_calc_ray(t_ray *ray, int **map, t_data *dt, int x);
 t_ray	ft_init_ray(t_data dt, int x);
 void	ft_init_side(t_data dt, t_ray *ray);
 void	ft_init_sprite(t_data *dt);
@@ -216,6 +218,7 @@ int		**ft_gen_texture(void);
 void	ft_free_textures(int **textures);
 t_img	ft_read_texture(void *mlx, char *name);
 void	ft_read_textures(t_data *dt);
+void	ft_change_key(t_data *dt);
 
 //game
 void	init_game(t_cube info);
@@ -227,6 +230,7 @@ void	ft_move_backward(t_data *dt, double movespeed);
 void	ft_move_left(t_data *dt, double movespeed);
 void	ft_move_right(t_data *dt, double movespeed);
 void	ft_change_door(t_data *dt);
+void	ft_take_key(t_data *dt);
 
 //bonus
 void	ft_collisions(t_data *dt);

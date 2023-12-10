@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_aux_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: josu <josu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 17:57:33 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/09 12:51:53 by josu             ###   ########.fr       */
+/*   Updated: 2023/12/10 19:59:10 by jzubizar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,18 @@ void	ft_change_door(t_data *dt)
 	if (fabs((double)dt->info.imap[x][y - 1]) == 2)
 		dt->info.imap[x][y - 1] *= (-1);
 	dt->move.spacebar = 0;
+}
+
+void	ft_take_key(t_data *dt)
+{
+	int	x;
+	int	y;
+
+	x = (int)dt->pos_dir.posx;
+	y = (int)dt->pos_dir.posy;
+	if ((double)dt->info.imap[x][y] == -1)
+	{
+		printf("KEY TAKEN!\n");
+		dt->info.imap[x][y] = 0;
+	}
 }
