@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/10 20:33:31 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 08:21:04 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ void	init_game(t_cube info)
 	mlx_hook(dt.mlx_w, 2, (1L << 0), *ft_press_key, &dt);
 	mlx_hook(dt.mlx_w, 3, (1L << 1), *ft_release_key, &dt);
 	mlx_loop_hook(dt.mlx, &ft_update_img, &dt);
-	mlx_hook(dt.mlx_w, 17, 0, ft_close, &info);
+	mlx_hook(dt.mlx_w, 17, 0, ft_close, &dt);
 	mlx_loop(dt.mlx);
 }

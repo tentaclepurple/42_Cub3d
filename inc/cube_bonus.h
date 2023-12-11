@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/10 21:46:30 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 08:17:31 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ void	init_cub(t_cube *cub);
 */
 void	free_exit(char *str, t_cube *cub);
 void	free_exit_mat(char *str, t_cube *cub);
+void	free_exit_all(char *str, t_cube *cub);
 
 //ray_calc
 int		ft_update_img(void *param);

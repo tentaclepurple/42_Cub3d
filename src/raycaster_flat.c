@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/07 19:41:56 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 08:25:22 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_press_key(int key, void *param)
 	else if (key == 0)
 		dt->move.mleft = 1;
 	else if (key == 53)
-		ft_close(0, NULL);
+		ft_close(param);
 	return (0);
 }
 
@@ -84,7 +84,7 @@ void	init_game(t_cube info)
 	mlx_hook(dt.mlx_w, 2, (1L << 0), *ft_press_key, &dt);
 	mlx_hook(dt.mlx_w, 3, (1L << 1), *ft_release_key, &dt);
 	mlx_loop_hook(dt.mlx, &ft_update_img, &dt);
-	mlx_hook(dt.mlx_w, 17, 0, &ft_close, &info);
+	mlx_hook(dt.mlx_w, 17, 0, &ft_close, &dt);
 	mlx_loop(dt.mlx);
 }
 

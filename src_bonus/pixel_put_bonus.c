@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_put_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jzubizar <jzubizar@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:33 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/10 17:31:55 by jzubizar         ###   ########.fr       */
+/*   Updated: 2023/12/11 08:20:20 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,13 @@ void	my_mlx_line_put(t_data *data, int x, t_draw draw)
 	}
 }
 
-int	ft_close(void *param)
+int ft_close(void *param)
 {
-	(void)param;
-	/* t_data	*dt;
+    t_data  *dt;
 
-	dt = (t_data *)param; */
-	//printf("no texture: %s\n", dt->info.no);
-	exit(0);
+    dt = (t_data *)param;
+    mlx_destroy_window(dt->mlx, dt->mlx_w);
+    free_exit_all("Game Over\n", &dt->info);
 }
 
 int	ft_fill_color(t_img img, int x, int y)

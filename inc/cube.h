@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 19:35:57 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 08:23:59 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ void	init_cub(t_cube *cub);
 */
 void	free_exit(char *str, t_cube *cub);
 void	free_exit_mat(char *str, t_cube *cub);
+void	free_exit_all(char *str, t_cube *cub);
 
 //ray_calc
 int		ft_update_img(void *param);
@@ -192,7 +193,7 @@ t_ray	ft_init_ray(t_data dt, int x);
 void	ft_init_side(t_data dt, t_ray *ray);
 
 //pixel_put
-int		ft_close(int key, void *param);
+int		ft_close(void *param);
 void	my_mlx_line_put(t_data *data, int x, t_draw draw);
 
 //texture
