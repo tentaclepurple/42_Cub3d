@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:54:31 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 19:19:37 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 10:34:49 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	ft_search_elems_aux(t_cube *cub, t_parse *p, char **spl)
 	else if (spl[p->i + 1] && !ft_strncmp("EA", spl[p->i], 2))
 		ft_save_path(cub, spl[p->i + 1], p, &(cub->ea));
 	else if (spl[p->i + 1] && !ft_strncmp("F", spl[p->i], 1))
-		cub->f = ft_save_color(spl, p, cub, p->countfc++);
+		cub->f = ft_save_color(spl, p, cub, p->countf++);
 	else if (spl[p->i + 1] && !ft_strncmp("C", spl[p->i], 1))
-		cub->c = ft_save_color(spl, p, cub, p->countfc++);
+		cub->c = ft_save_color(spl, p, cub, p->countc++);
 	else
 		free_exit("Error\nUnexpected element/character\n", cub);
 }

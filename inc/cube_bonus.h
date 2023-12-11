@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/11 08:17:31 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:00:12 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct s_slp
 	int			texy;
 	int			*dst;
 }				t_slp;
-
 
 typedef struct s_sprite
 {
@@ -173,7 +172,8 @@ typedef struct s_parse
 	int	lastelem;
 	int	firstmap;
 	int	counttx;
-	int	countfc;
+	int	countf;
+	int	countc;
 }		t_parse;
 
 /*
@@ -194,6 +194,7 @@ void	ft_get_map_size(t_cube *cub);
 void	ft_map_char_2_int(t_cube *cub);
 void	ft_map_values(t_cube *cub);
 void	ft_check_repeat_elems(t_cube *cub);
+int		ft_check_bonus_textures(void);
 
 /* 
 	utils
@@ -218,6 +219,7 @@ int		ft_do_move(t_data *dt);
 void	ft_get_draw_info(t_data dt, t_ray ray, t_draw *draw);
 void	ft_calc_ray(t_ray *ray, int **map, t_data *dt, int x);
 t_ray	ft_init_ray(t_data dt, int x);
+void	ft_put_sprite(t_data *dt);
 void	ft_init_side(t_data dt, t_ray *ray);
 void	ft_init_sprite(t_data *dt);
 void	ft_calc_ray_aux(t_ray *ray);
@@ -231,7 +233,7 @@ void	my_mlx_line_put(t_data *data, int x, t_draw draw);
 //texture
 int		**ft_gen_texture(void);
 void	ft_free_textures(int **textures);
-t_img	ft_read_texture(void *mlx, char *name);
+t_img	ft_read_texture(void *mlx, char *name, t_data *dt);
 void	ft_read_textures(t_data *dt);
 void	ft_change_key(t_data *dt);
 

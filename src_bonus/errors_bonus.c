@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:41:58 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/11 08:18:37 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:20:56 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_exit_mat(char *str, t_cube *cub)
 	free(cub->we);
 	free(cub->ea);
 	ft_free_split(cub->map);
-	exit(-1);
+	exit(0);
 }
 
 void	free_exit(char *str, t_cube *cub)
@@ -30,7 +30,7 @@ void	free_exit(char *str, t_cube *cub)
 	free(cub->so);
 	free(cub->we);
 	free(cub->ea);
-	exit(-1);
+	exit(0);
 }
 
 void	free_exit_all(char *str, t_cube *cub)

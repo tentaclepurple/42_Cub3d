@@ -6,11 +6,33 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:54:31 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 19:42:34 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 11:42:53 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cube_bonus.h"
+
+int	ft_check_bonus_textures(void)
+{
+	int	fd[8];
+	int	i;
+
+	i = 0;
+	fd[0] = open("textures/key1.xpm", O_RDONLY);
+	fd[1] = open("textures/key2.xpm", O_RDONLY);
+	fd[2] = open("textures/key4.xpm", O_RDONLY);
+	fd[3] = open("textures/key5.xpm", O_RDONLY);
+	fd[4] = open("textures/key6.xpm", O_RDONLY);
+	fd[5] = open("textures/key7.xpm", O_RDONLY);
+	fd[6] = open("textures/key8.xpm", O_RDONLY);
+	fd[7] = open("textures/pixel3.xpm", O_RDONLY);
+	if (fd[0] == -1 || fd[1] == -1 || fd[2] == -1 || fd[3] == -1 || fd[4] == -1
+		|| fd[5] == -1 || fd[6] == -1 || fd[7] == -1)
+		return (0);
+	while (i < 8)
+		close(fd[i++]);
+	return (1);
+}
 
 //check if path is xpm and opens it to check if it is a valid path
 void	ft_save_path(t_cube *cub, char *path, t_parse *p, char **elem)
@@ -73,9 +95,9 @@ void	ft_search_elems_aux(t_cube *cub, t_parse *p, char **spl)
 	else if (spl[p->i + 1] && !ft_strncmp("EA", spl[p->i], 2))
 		ft_save_path(cub, spl[p->i + 1], p, &(cub->ea));
 	else if (spl[p->i + 1] && !ft_strncmp("F", spl[p->i], 1))
-		cub->f = ft_save_color(spl, p, cub, p->countfc++);
+		cub->f = ft_save_color(spl, p, cub, p->countf++);
 	else if (spl[p->i + 1] && !ft_strncmp("C", spl[p->i], 1))
-		cub->c = ft_save_color(spl, p, cub, p->countfc++);
+		cub->c = ft_save_color(spl, p, cub, p->countc++);
 	else
 		free_exit("Error\nUnexpected element/character\n", cub);
 }

@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:10:37 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/11 08:23:59 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 12:17:25 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,8 @@ typedef struct s_parse
 	int	lastelem;
 	int	firstmap;
 	int	counttx;
-	int	countfc;
+	int	countf;
+	int	countc;
 }		t_parse;
 
 void	ft_print_map(char **map);
@@ -199,7 +200,7 @@ void	my_mlx_line_put(t_data *data, int x, t_draw draw);
 //texture
 int		**ft_gen_texture(void);
 void	ft_free_textures(int **textures);
-t_img	ft_read_texture(void *mlx, char *name);
+t_img	ft_read_texture(void *mlx, char *name, t_data *dt);
 void	ft_read_textures(t_data *dt);
 
 //game

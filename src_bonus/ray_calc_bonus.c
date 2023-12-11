@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 12:53:30 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/10 21:48:19 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 09:33:10 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_minimap_bgr(t_data *dt)
 		j = 0;
 		while (j < dt->info.map_size[1])
 		{
-			if (dt->info.imap[i][j] == 1 || dt->info.imap[i][j] == 2
+			if (dt->info.imap[i][j] != 0 || dt->info.imap[i][j] == 2
 				|| dt->info.imap[i][j] == 3)
 				mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->pix, \
 				j * RES, i * RES);
@@ -127,11 +127,5 @@ int	ft_update_img(void *param)
 		my_mlx_line_put(dt, x, draw);
 		x++;
 	}
-	/* ft_collisions(dt);
-	mlx_put_image_to_window(dt->mlx, dt->mlx_w, dt->img_pp.img, 0, 0);
-	ft_minimap_bgr(dt);
-	if (dt->sprite.perpdist != 0)
-		ft_put_sprite(dt);
-	mlx_destroy_image(dt->mlx, dt->img_pp.img); */
-	return (ft_update_img_aux(&dt), 0);
+	return (ft_update_img_aux(dt), 0);
 }

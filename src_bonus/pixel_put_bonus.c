@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:33 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/12/11 08:20:20 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 08:44:32 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,14 @@ void	my_mlx_line_put(t_data *data, int x, t_draw draw)
 	}
 }
 
-int ft_close(void *param)
+int	ft_close(void *param)
 {
-    t_data  *dt;
+	t_data	*dt;
 
-    dt = (t_data *)param;
-    mlx_destroy_window(dt->mlx, dt->mlx_w);
-    free_exit_all("Game Over\n", &dt->info);
+	dt = (t_data *)param;
+	mlx_destroy_window(dt->mlx, dt->mlx_w);
+	free_exit_all("Game Over\n", &dt->info);
+	return (0);
 }
 
 int	ft_fill_color(t_img img, int x, int y)

@@ -2,7 +2,7 @@
 USER_NAME = Josu&Iban
 # Compiler and flags
 CC        = gcc
-CFLAGS    = -Wall -Wextra -Werror -I $(INC_DIR) -I $(MINILIBX_DIR) -I $(LIBFT_DIR)/include -O3 -g3 -fsanitize=address
+CFLAGS    = -Wall -Wextra -Werror -I $(INC_DIR) -I $(MINILIBX_DIR) -I $(LIBFT_DIR)/include -O3 -g3 #-fsanitize=address
 # Platform to run project (Linux and Mac)
 PLATFORM  := $(shell uname)
 # Directories
@@ -22,38 +22,38 @@ LINKING = -lmlx -framework OpenGL -framework AppKit
 BIN_DIR   = bin/IOS/
 endif
 # Source files
-SRC_FILE =	 	pixel_put.c \
-				ray_calc.c \
-				ray_calc_aux.c \
-				raycaster_flat.c \
-				texture.c \
-				custom_split.c \
-				elems_aux.c \
-				elems.c \
-				fillmap.c \
-				parse_aux.c \
-				errors.c \
-				move.c \
-				move_aux.c \
-				checks.c \
-				main.c
-SRC_FILE_BONUS = pixel_put_bonus.c \
-				ray_calc_bonus.c \
-				ray_calc_aux_bonus.c \
-				ray_calc_aux2_bonus.c
-				raycaster_flat_bonus.c \
-				texture_bonus.c \
-				custom_split_bonus.c \
-				elems_aux_bonus.c \
-				elems_bonus.c \
-				fillmap_bonus.c \
-				parse_aux_bonus.c \
-				errors_bonus.c \
-				move_bonus.c \
-				move_aux_bonus.c \
-				checks_bonus.c \
-				main_bonus.c \
-				collisions_bonus.c
+SRC_FILE =	 		pixel_put.c \
+					ray_calc.c \
+					ray_calc_aux.c \
+					raycaster_flat.c \
+					texture.c \
+					custom_split.c \
+					elems_aux.c \
+					elems.c \
+					fillmap.c \
+					parse_aux.c \
+					errors.c \
+					move.c \
+					move_aux.c \
+					checks.c \
+					main.c
+SRC_FILE_BONUS = 	pixel_put_bonus.c \
+					ray_calc_bonus.c \
+					ray_calc_aux_bonus.c \
+					ray_calc_aux2_bonus.c \
+					raycaster_flat_bonus.c \
+					texture_bonus.c \
+					custom_split_bonus.c \
+					elems_aux_bonus.c \
+					elems_bonus.c \
+					fillmap_bonus.c \
+					parse_aux_bonus.c \
+					errors_bonus.c \
+					move_bonus.c \
+					move_aux_bonus.c \
+					checks_bonus.c \
+					main_bonus.c \
+					collisions_bonus.c
 
 SRC      =				$(addprefix $(SRC_DIR), $(SRC_FILE))
 OBJ_FILE =				$(SRC_FILE:.c=.o)
@@ -111,7 +111,7 @@ bonus: $(LIBFT) $(MINILIBX) $(OBJ_BONUS)
 clean:
 	$(RM) $(OBJ) $(OBJ_BONUS)
 	@echo "✔ $(USER_NAME)'s $(NAME) .o files removal"
-	$(MAKE) -C $(LIBFT_DIR) fclean
+	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(MINILIBX_DIR) clean
 
 fclean: clean

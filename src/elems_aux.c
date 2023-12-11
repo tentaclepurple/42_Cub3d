@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 08:56:07 by imontero          #+#    #+#             */
-/*   Updated: 2023/12/07 18:09:24 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 10:35:36 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_search_elems(t_cube *cub, char **spl, t_parse *p)
 		ft_search_elems_aux(cub, p, spl);
 		p->i++;
 	}
-	if (p->counttx != 4 || p->countfc != 2)
+	if (p->counttx != 4 || p->countf != 1 || p->countc != 1)
 		free_exit("Error\nInvalid number of textures or colors\n", cub);
 	else if (p->lastelem > p->firstmap)
 		free_exit("Error\nUnexpeted element order\n", cub);

@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:34:23 by jzubizar          #+#    #+#             */
-/*   Updated: 2023/11/24 19:57:04 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/11 10:01:31 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdarg.h>
 # include <stdint.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
