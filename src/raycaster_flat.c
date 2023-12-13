@@ -6,7 +6,7 @@
 /*   By: imontero <imontero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:58:43 by codespace         #+#    #+#             */
-/*   Updated: 2023/12/11 08:25:22 by imontero         ###   ########.fr       */
+/*   Updated: 2023/12/13 10:19:51 by imontero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,14 @@ void	init_game(t_cube info)
 	dt.w = SCREENWIDTH;
 	dt.h = SCREENHEIGHT;
 	ft_init_move(&dt);
+	ft_read_textures(&dt);
 	dt.pos_dir.posx = (double)info.pl_pos[1] + 0.5;
 	dt.pos_dir.posy = (double)info.pl_pos[0] + 0.5;
 	dt.pos_dir.dirx = (double)info.pl_dir[1];
 	dt.pos_dir.diry = (double)info.pl_dir[0];
 	dt.pos_dir.planex = dt.pos_dir.diry * (0.66);
 	dt.pos_dir.planey = dt.pos_dir.dirx * (-0.66);
-	ft_read_textures(&dt);
+	ft_rotate_right(&dt, ROT_SPEED);
 	dt.mlx_w = mlx_new_window(dt.mlx, SCREENWIDTH, SCREENHEIGHT, "Raycaster");
 	mlx_hook(dt.mlx_w, 2, (1L << 0), *ft_press_key, &dt);
 	mlx_hook(dt.mlx_w, 3, (1L << 1), *ft_release_key, &dt);
@@ -88,26 +89,3 @@ void	init_game(t_cube info)
 	mlx_loop(dt.mlx);
 }
 
-/*void	init_game(t_cube *info)
-{
-	t_data	dt;
-
-	dt.info = info;
-	dt.mlx = mlx_init();
-	dt.w = SCREENWIDTH;
-	dt.h = SCREENHEIGHT;
-	ft_init_move(&dt);
-	dt.pos_dir.posx = (double)info->pl_pos[1] + 0.5;
-	dt.pos_dir.posy = (double)info->pl_pos[0] + 0.5;
-	dt.pos_dir.dirx = (double)info->pl_dir[1];
-	dt.pos_dir.diry = (double)info->pl_dir[0];
-	dt.pos_dir.planex = dt.pos_dir.diry * (0.66);
-	dt.pos_dir.planey = dt.pos_dir.dirx * (-0.66);
-	ft_read_textures(&dt);
-	dt.mlx_w = mlx_new_window(dt.mlx, SCREENWIDTH, SCREENHEIGHT, "Raycaster");
-	mlx_hook(dt.mlx_w, 2, (1L << 0), *ft_press_key, &dt);
-	mlx_hook(dt.mlx_w, 3, (1L << 1), *ft_release_key, &dt);
-	mlx_loop_hook(dt.mlx, &ft_update_img, &dt);
-	mlx_hook(dt.mlx_w, 17, 0, ft_close, info);
-	mlx_loop(dt.mlx);
-}*/
